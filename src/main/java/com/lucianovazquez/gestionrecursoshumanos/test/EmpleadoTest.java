@@ -20,17 +20,18 @@ String mensaje = "";
     
     public void insertar() throws ClassNotFoundException, SQLException {
     
-    emp.setId_empleado(1);
-    emp.setId_funcionario(2);
-    emp.setId_reparticion(3);
-    /*
-    emp.setDni(34067850);
-    emp.setNombre("Juan");
-    emp.setDomicilio("Rivadavia 336");
-    emp.setTelefono("3834287951");
-    emp.setEmail("juanperez@gmail.com");
-    */
     
+    emp.setId_funcionario(1);
+    emp.setId_reparticion(5);
+    
+    emp.setDni("34067850");
+    emp.setNombre("Luciano");
+    emp.setApellido("Vazquez");
+    emp.setDomicilio("Cabral 336");
+    emp.setTelefono("3834287951");
+    emp.setEmail("eaea@gmail.com");
+    
+    emp.setEstadoEmpleado("Fuera de puesto laboral");
     emp.setTurno("mañana");
     emp.setDisponibleLicencia(30);
     emp.setDsponiblePermiso(5);

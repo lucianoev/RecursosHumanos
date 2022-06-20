@@ -20,17 +20,24 @@ public class EmpleadoDAO {
     private String mensaje = "";
     private Empleado empleado;
     
-    private static final String INSERT_QUERY = "INSERT INTO empleado (id_empleado,id_funcionario,id_reparticion,turno,disponibleLicencia,disponiblePermiso)" + "VALUES (?,?,?,?,?,?)";
+    private static final String INSERT_QUERY = "INSERT INTO empleado (id_empleado,id_reparticion,id_funcionario,nombre,apellido,dni,domicilio,telefono,email,estadoEmpleado,turno,disponibleLicencia,disponiblePermiso)" 
+            + "VALUES (id_empleado=LAST_INSERT_ID(id_empleado+1),?,?,?,?,?,?,?,?,?,?,?,?)";
 
     public String insert (Empleado empleado) throws ClassNotFoundException{
     try{
         PreparedStatement preparedStatement = ConexionDAO.getConnection().prepareStatement(INSERT_QUERY);
-        preparedStatement.setInt(1, empleado.getId_empleado());
+        preparedStatement.setInt(1, empleado.getId_reparticion());
         preparedStatement.setInt(2, empleado.getId_funcionario());
-        preparedStatement.setInt(3, empleado.getId_reparticion());
-        preparedStatement.setString(4, empleado.getTurno());
-        preparedStatement.setInt(5, empleado.getDisponibleLicencia());
-        preparedStatement.setInt(6, empleado.getDsponiblePermiso());
+        preparedStatement.setString(3, empleado.getNombre());
+        preparedStatement.setString(4, empleado.getApellido());
+        preparedStatement.setString(5, empleado.getDni());
+        preparedStatement.setString(6, empleado.getDomicilio());
+        preparedStatement.setString(7, empleado.getTelefono());
+        preparedStatement.setString(8, empleado.getEmail());
+        preparedStatement.setString(9, empleado.getEstadoEmpleado());
+        preparedStatement.setString(10, empleado.getTurno());
+        preparedStatement.setInt(11, empleado.getDisponibleLicencia());
+        preparedStatement.setInt(12, empleado.getDsponiblePermiso());
         preparedStatement.execute();
         mensaje = "Creado Correctamente";
                                                  
