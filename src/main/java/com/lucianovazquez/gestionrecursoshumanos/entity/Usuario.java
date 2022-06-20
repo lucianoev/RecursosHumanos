@@ -9,14 +9,14 @@ package com.lucianovazquez.gestionrecursoshumanos.entity;
  *
  * @author Lenovo 3
  */
-public class Usuario extends Persona {
+public class Usuario  {
     private int id_usuario;
     private String nombreUsuario;
     private String contraseña;
     private String tipo;
 
     public Usuario(int id_usuario, String logUsuario, String contraseña, String tipo, int id_persona, int dni, String nombre, String domicilio, String telefono, String email) {
-        super(id_persona, dni, nombre, domicilio, telefono, email);
+        
         this.id_usuario = id_usuario;
         this.nombreUsuario = logUsuario;
         this.contraseña = contraseña;

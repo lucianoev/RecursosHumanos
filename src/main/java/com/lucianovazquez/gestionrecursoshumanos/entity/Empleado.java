@@ -9,7 +9,7 @@ package com.lucianovazquez.gestionrecursoshumanos.entity;
  *
  * @author Lenovo 3
  */
-public class Empleado extends Persona {
+public class Empleado  {
     private int id_empleado;
     private int id_funcionario;
     private int id_reparticion;
@@ -18,12 +18,11 @@ public class Empleado extends Persona {
     private int dsponiblePermiso;
 
     public Empleado() {
-        super();
     }
     
     
     public Empleado(int id_empleado, int id_funcionario, int id_reparticion, String turno, int disponibleLicencia, int dsponiblePermiso, int id_persona, int dni, String nombre, String domicilio, String telefono, String email) {
-        super(id_persona, dni, nombre, domicilio, telefono, email);
+        
         this.id_empleado = id_empleado;
         this.id_funcionario = id_funcionario;
         this.id_reparticion = id_reparticion;
