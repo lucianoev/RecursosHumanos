@@ -12,6 +12,7 @@ package com.lucianovazquez.gestionrecursoshumanos.entity;
 public class Permiso {
     private int id_permiso;
     private int id_empleado;
+    private int id_funcionario;
     private String horaInicio;
     private String horaFin;
     private String estadoPermiso;

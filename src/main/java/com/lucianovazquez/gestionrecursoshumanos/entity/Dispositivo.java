@@ -9,11 +9,9 @@ package com.lucianovazquez.gestionrecursoshumanos.entity;
  *
  * @author Lenovo 3
  */
-public class Tardanza {
-    private int id_tardanza;
-    private int id_empleado;
-    private String diaTardanza;
-    private String tiempoTardanza;
-    private String observacionTardanza;
-    
+public class Dispositivo {
+    private int id_dispositivo;
+    private int id_repartición;
+    private String edificio;
+    private String ubicacion;
 }
