@@ -11,16 +11,22 @@ package com.lucianovazquez.gestionrecursoshumanos.entity;
  */
 public class Usuario  {
     private int id_usuario;
+    private String nombre;
     private String nombreUsuario;
     private String contraseña;
     private String tipo;
 
-    public Usuario(int id_usuario, String logUsuario, String contraseña, String tipo, int id_persona, int dni, String nombre, String domicilio, String telefono, String email) {
+    public Usuario(int id_usuario, String nombre, String nombreUsuario, String contraseña, String tipo) {
         
         this.id_usuario = id_usuario;
-        this.nombreUsuario = logUsuario;
+        this.nombre = nombre;
+        this.nombreUsuario = nombreUsuario;
         this.contraseña = contraseña;
         this.tipo = tipo;
+    }
+
+    public Usuario() {
+        
     }
 
     public int getId_usuario() {
@@ -31,12 +37,20 @@ public class Usuario  {
         this.id_usuario = id_usuario;
     }
 
-    public String getLogUsuario() {
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNombreUsuario() {
         return nombreUsuario;
     }
 
-    public void setLogUsuario(String logUsuario) {
-        this.nombreUsuario = logUsuario;
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 
     public String getContraseña() {

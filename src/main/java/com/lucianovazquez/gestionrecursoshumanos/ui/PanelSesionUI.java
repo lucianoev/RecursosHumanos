@@ -5,6 +5,13 @@
  */
 package com.lucianovazquez.gestionrecursoshumanos.ui;
 
+import com.lucianovazquez.gestionrecursoshumanos.bo.UsuarioBO;
+import com.lucianovazquez.gestionrecursoshumanos.entity.Usuario;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Lenovo 3
@@ -14,8 +21,27 @@ public class PanelSesionUI extends javax.swing.JPanel {
     /**
      * Creates new form PanelSesionUI
      */
-    public PanelSesionUI() {
+    GridBagLayout layaout = new GridBagLayout();
+    Usuario usuario;
+    UsuarioBO usuarioBO = new UsuarioBO();
+    LoginUI login;
+    
+    javax.swing.JPanel panelContenedor;
+    javax.swing.JPanel panelContenedorSesion;
+    
+    
+    public PanelSesionUI(javax.swing.JPanel panelContenedor, javax.swing.JPanel panelContenedorSesion, Usuario sesionUsuario) {
         initComponents();
+        this.usuario = sesionUsuario;
+        this.panelContenedor = panelContenedor;
+        this.panelContenedorSesion = panelContenedorSesion;
+        
+        System.out.println("" + usuario.getNombre());
+        jLabelUsuario.setVisible(true);
+        jLabelTipo.setText(usuario.getTipo());
+        jLabelUsuario.setText(usuario.getNombre());
+        jLabelUsuario.setEnabled(true);
+        jButtonCerrarSesion.setEnabled(true);
     }
 
     /**
@@ -27,32 +53,34 @@ public class PanelSesionUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jPanelSesion = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        jLabelTipo = new javax.swing.JLabel();
+        jButtonCerrarSesion = new javax.swing.JButton();
+        jLabelUsuario = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(800, 80));
         setMinimumSize(new java.awt.Dimension(800, 80));
         setPreferredSize(new java.awt.Dimension(800, 80));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.setMaximumSize(new java.awt.Dimension(800, 80));
-        jPanel1.setMinimumSize(new java.awt.Dimension(800, 80));
+        jPanelSesion.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelSesion.setMaximumSize(new java.awt.Dimension(800, 80));
+        jPanelSesion.setMinimumSize(new java.awt.Dimension(800, 80));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/siglo21chico.png"))); // NOI18N
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fray.png"))); // NOI18N
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(52, 59, 89));
         jLabel6.setText("Sistema de Gestión de Recursos Humanos");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(52, 59, 89));
         jLabel7.setText("Municipalidad de Fray Mamerto Esquiú");
 
@@ -60,55 +88,73 @@ public class PanelSesionUI extends javax.swing.JPanel {
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(52, 59, 89));
-        jLabel8.setText("Usuario: Juan Perez (N° legajo)");
+        jLabel8.setText("Usuario: ");
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(52, 59, 89));
-        jLabel9.setText("Repartición");
+        jLabelTipo.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        jLabelTipo.setForeground(new java.awt.Color(52, 59, 89));
+        jLabelTipo.setText("tipo");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jButtonCerrarSesion.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
+        jButtonCerrarSesion.setText("Cerrar Sesion");
+        jButtonCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCerrarSesionActionPerformed(evt);
+            }
+        });
+
+        jLabelUsuario.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabelUsuario.setForeground(new java.awt.Color(52, 59, 89));
+        jLabelUsuario.setText("Label usuario");
+
+        javax.swing.GroupLayout jPanelSesionLayout = new javax.swing.GroupLayout(jPanelSesion);
+        jPanelSesion.setLayout(jPanelSesionLayout);
+        jPanelSesionLayout.setHorizontalGroup(
+            jPanelSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelSesionLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jLabel2)
-                .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(jLabel6))
-                .addGap(52, 52, 52)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
+                .addGap(47, 47, 47)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addGroup(jPanelSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelTipo)
                     .addComponent(jLabel8))
-                .addGap(49, 49, 49)
+                .addGap(18, 18, 18)
+                .addGroup(jPanelSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+        jPanelSesionLayout.setVerticalGroup(
+            jPanelSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator1)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanelSesionLayout.createSequentialGroup()
+                .addGroup(jPanelSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelSesionLayout.createSequentialGroup()
+                        .addGroup(jPanelSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelSesionLayout.createSequentialGroup()
                                 .addGap(19, 19, 19)
+                                .addGroup(jPanelSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabelUsuario))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanelSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabelTipo)
+                                    .addComponent(jButtonCerrarSesion)))
+                            .addGroup(jPanelSesionLayout.createSequentialGroup()
+                                .addGap(20, 20, 20)
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel7))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel9)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(jLabel7)))
+                        .addGap(0, 8, Short.MAX_VALUE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -116,25 +162,55 @@ public class PanelSesionUI extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanelSesion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanelSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarSesionActionPerformed
+        int b;
+
+        b = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea cerrar sesión?",
+            "Advertencia", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+        if (b == 0) {
+
+            jLabelUsuario.setText("");
+            jLabelUsuario.setEnabled(false);
+            int i = panelContenedor.getComponentCount();
+            while (i != 0) {
+                if (panelContenedor.getComponent(i-1) instanceof JPanel) {
+                    panelContenedor.getComponent(i-1).setVisible(false);
+                }
+                i--;
+            }
+            login = new LoginUI(panelContenedor, jPanelSesion);
+
+            panelContenedor.setLayout(layaout);
+            GridBagConstraints c = new GridBagConstraints();
+            c.gridx = 0;
+            c.gridy = 0;
+            panelContenedor.add(login, c);
+            login.setVisible(true);
+            jButtonCerrarSesion.setEnabled(false);
+
+            //this.setContentPane(jPanelFondo);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCerrarSesionActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonCerrarSesion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabelTipo;
+    private javax.swing.JLabel jLabelUsuario;
+    private javax.swing.JPanel jPanelSesion;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }

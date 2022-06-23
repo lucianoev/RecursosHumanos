@@ -5,17 +5,35 @@
  */
 package com.lucianovazquez.gestionrecursoshumanos.ui;
 
+import com.lucianovazquez.gestionrecursoshumanos.bo.UsuarioBO;
+import com.lucianovazquez.gestionrecursoshumanos.entity.Usuario;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Lenovo 3
  */
 public class LoginUI extends javax.swing.JPanel {
 
-    /**
-     * Creates new form LoginUI
-     */
-    public LoginUI() {
+    javax.swing.JPanel panelContenedor;
+    javax.swing.JPanel panelContenedorSesion;
+    PanelSesionUI panelSesion;
+    GridBagLayout layaout = new GridBagLayout();
+    MenuPrincipalUI panelMenu;
+    UsuarioBO usu = new UsuarioBO();
+    Usuario usuario = new Usuario();
+
+    javax.swing.JButton jButtonUsuario;
+    javax.swing.JButton jButtonCerrarSesion;
+    boolean login;
+
+    public LoginUI(javax.swing.JPanel panelContenedor, javax.swing.JPanel panelContenedorSesion) {
         initComponents();
+        this.panelContenedor = panelContenedor;
+        this.panelContenedorSesion = panelContenedorSesion;
+       panelContenedorSesion.setVisible(true);
     }
 
     /**
@@ -196,16 +214,16 @@ public class LoginUI extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(221, Short.MAX_VALUE)
+                .addContainerGap(222, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(219, 219, 219))
+                .addGap(218, 218, 218))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(104, 104, 104)
+                .addGap(74, 74, 74)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(140, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -231,7 +249,7 @@ public class LoginUI extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
-      /*  login = usu.loginUsuario(JTextFieldUsuario.getText(), JPasswordFieldContraseña.getText());
+      login = usu.loginUsuario(JTextFieldUsuario.getText(), JPasswordFieldContraseña.getText());
 
         if (login) {
             panelContenedorSesion.removeAll();
@@ -255,7 +273,7 @@ public class LoginUI extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrecta");
         }
-*/
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
 

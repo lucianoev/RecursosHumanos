@@ -5,6 +5,10 @@
  */
 package com.lucianovazquez.gestionrecursoshumanos.ui;
 
+import com.lucianovazquez.gestionrecursoshumanos.entity.Usuario;
+import com.lucianovazquez.gestionrecursoshumanos.ui.GestionEmpleadosUI;
+import java.awt.GridBagLayout;
+
 /**
  *
  * @author Lenovo 3
@@ -14,8 +18,19 @@ public class MenuPrincipalUI extends javax.swing.JPanel {
     /**
      * Creates new form MenuPrincipalUI
      */
-    public MenuPrincipalUI() {
+    javax.swing.JPanel panel;
+    javax.swing.JPanel panelSesion;
+    GridBagLayout layaout = new GridBagLayout();
+    Usuario usuario = new Usuario();
+    GestionEmpleadosUI panelGestionEmpleados;
+    ControlAsistenciaUI panelControl;
+    
+    public MenuPrincipalUI(javax.swing.JPanel panelContenedor, Usuario sesionUsuario,javax.swing.JPanel panelSesion) {
         initComponents();
+        
+        this.panelSesion=panelSesion;
+        this.usuario = sesionUsuario;
+        this.panel=panelContenedor;
     }
 
     /**
@@ -35,9 +50,9 @@ public class MenuPrincipalUI extends javax.swing.JPanel {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
 
-        setMaximumSize(new java.awt.Dimension(800, 415));
-        setMinimumSize(new java.awt.Dimension(800, 415));
-        setPreferredSize(new java.awt.Dimension(800, 415));
+        setMaximumSize(new java.awt.Dimension(800, 400));
+        setMinimumSize(new java.awt.Dimension(800, 400));
+        setPreferredSize(new java.awt.Dimension(800, 400));
         setRequestFocusEnabled(false);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -100,7 +115,7 @@ public class MenuPrincipalUI extends javax.swing.JPanel {
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(275, Short.MAX_VALUE))
+                .addContainerGap(295, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,33 +132,33 @@ public class MenuPrincipalUI extends javax.swing.JPanel {
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 393, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        panelControl = new ControlAsistenciaUI(panel,panelSesion);
+        panel.add(panelControl);
+        panelControl.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        panelGestionEmpleados = new GestionEmpleadosUI(panel, usuario, panelSesion);
+        panel.add(panelGestionEmpleados);
+        panelGestionEmpleados.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
