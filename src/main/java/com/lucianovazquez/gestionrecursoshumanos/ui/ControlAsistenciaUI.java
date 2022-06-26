@@ -5,7 +5,12 @@
  */
 package com.lucianovazquez.gestionrecursoshumanos.ui;
 
+import com.lucianovazquez.gestionrecursoshumanos.bo.InasistenciaBO;
+import com.lucianovazquez.gestionrecursoshumanos.bo.TardanzaBO;
+import com.lucianovazquez.gestionrecursoshumanos.entity.Usuario;
 import javax.swing.JPanel;
+import java.time.*;
+
 
 /**
  *
@@ -18,11 +23,23 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
      */
     javax.swing.JPanel panel;
     javax.swing.JPanel panelSesion;
+    MenuPrincipalUI panelMenu;
+    Usuario usuario = new Usuario();
+    InasistenciaBO inasistenciaBO;
+    TardanzaBO tardanzaBO;
+     LocalDate dia = LocalDate.now();
     
-    public ControlAsistenciaUI(JPanel panelContenedor, JPanel panelSesion) {
+    public ControlAsistenciaUI(JPanel panelContenedor, Usuario usuario, JPanel panelSesion) {
         initComponents();
         this.panel = panelContenedor;
         this.panelSesion = panelSesion;
+        
+        System.out.println("dia:" + dia);
+        
+        inasistenciaBO.listarInasistencia(jTable1, dia);
+        tardanzaBO.listarTardanza(jTable2, dia);
+        //permisoBO.listarPermiso(jTable3);
+        
     }
 
     
@@ -83,7 +100,7 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "N° ", "Nombre", "Apellido", "Repartición", "Funcionario a cargo", "Turno"
+                "N° ", "Nombre", "Apellido", "Repartición", "Tipo", "Turno"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -106,7 +123,7 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "N°", "Nombre", "Apellido", "Repartición", "Legajo N°", "Turno"
+                "N°", "Nombre", "Apellido", "Repartición", "Tiempo", "Turno"
             }
         ));
         jTable2.setIntercellSpacing(new java.awt.Dimension(2, 2));
@@ -140,21 +157,11 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 760, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 703, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 170, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Permisos", jPanel3);
@@ -166,7 +173,7 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setText("Menú Principal");
+        jButton2.setText("Volver al Menú Principal");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -248,7 +255,10 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+       panelMenu = new MenuPrincipalUI(panel,usuario, panelSesion);
+       panel.add(panelMenu);
+       panelMenu.setVisible(true);
+       this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

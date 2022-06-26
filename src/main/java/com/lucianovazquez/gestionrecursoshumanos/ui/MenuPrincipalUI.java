@@ -148,7 +148,7 @@ public class MenuPrincipalUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        panelControl = new ControlAsistenciaUI(panel,panelSesion);
+        panelControl = new ControlAsistenciaUI(panel, usuario, panelSesion);
         panel.add(panelControl);
         panelControl.setVisible(true);
         this.setVisible(false);

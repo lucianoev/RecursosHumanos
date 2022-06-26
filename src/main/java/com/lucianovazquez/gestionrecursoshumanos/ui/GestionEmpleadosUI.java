@@ -20,6 +20,8 @@ public class GestionEmpleadosUI extends javax.swing.JPanel {
     javax.swing.JPanel panel;
     javax.swing.JPanel panelSesion;
     Usuario usuario = new Usuario();
+    MenuPrincipalUI panelMenu;
+    
     
     public GestionEmpleadosUI(javax.swing.JPanel panelContenedor, Usuario sesionUsuario, javax.swing.JPanel panelSesion) {
         initComponents();
@@ -196,7 +198,10 @@ public class GestionEmpleadosUI extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+       panelMenu = new MenuPrincipalUI(panel,usuario, panelSesion);
+       panel.add(panelMenu);
+       panelMenu.setVisible(true);
+       this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
