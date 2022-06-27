@@ -24,6 +24,9 @@ public class Inasistencia {
         this.observacionInasistencia = observacionInasistencia;
     }
 
+    public Inasistencia() {
+    }
+
     public int getId_inasistencia() {
         return id_inasistencia;
     }

@@ -27,11 +27,10 @@ public class InasistenciaDAO {
     public String insert (Inasistencia inasistencia) throws ClassNotFoundException{
     try{
         PreparedStatement ps = ConexionDAO.getConnection().prepareStatement(INSERT_QUERY);
-        ps.setInt(1, inasistencia.getId_inasistencia());
-        ps.setInt(2, inasistencia.getId_empleado());
-        ps.setString(3, inasistencia.getDiaInasistencia());
-        ps.setString(4, inasistencia.getTipo());
-        ps.setString(5, inasistencia.getObservacionInasistencia());
+        ps.setInt(1, inasistencia.getId_empleado());
+        ps.setString(2, inasistencia.getDiaInasistencia());
+        ps.setString(3, inasistencia.getTipo());
+        ps.setString(4, inasistencia.getObservacionInasistencia());
         ps.execute();
         mensaje = "Inasistencia Guardada correctamente";
     }catch(SQLException ex) {
