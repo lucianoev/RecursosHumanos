@@ -22,12 +22,12 @@ public class Empleado  {
     private String estadoEmpleado;
     private String turno;
     private int disponibleLicencia;
-    private int dsponiblePermiso;
+    private int disponiblePermiso;
 
     public Empleado() {
     }
 
-    public Empleado(int id_empleado, int id_funcionario, int id_reparticion, String nombre, String apellido, String dni, String domicilio, String telefono, String email, String estadoEmpleado, String turno, int disponibleLicencia, int dsponiblePermiso) {
+    public Empleado(int id_empleado, int id_funcionario, int id_reparticion, String nombre, String apellido, String dni, String domicilio, String telefono, String email, String estadoEmpleado, String turno, int disponibleLicencia, int disponiblePermiso) {
         this.id_empleado = id_empleado;
         this.id_funcionario = id_funcionario;
         this.id_reparticion = id_reparticion;
@@ -40,7 +40,7 @@ public class Empleado  {
         this.estadoEmpleado = estadoEmpleado;
         this.turno = turno;
         this.disponibleLicencia = disponibleLicencia;
-        this.dsponiblePermiso = dsponiblePermiso;
+        this.disponiblePermiso = disponiblePermiso;
     }
 
     
@@ -142,11 +142,11 @@ public class Empleado  {
     }
 
     public int getDsponiblePermiso() {
-        return dsponiblePermiso;
+        return disponiblePermiso;
     }
 
-    public void setDsponiblePermiso(int dsponiblePermiso) {
-        this.dsponiblePermiso = dsponiblePermiso;
+    public void setDsponiblePermiso(int disponiblePermiso) {
+        this.disponiblePermiso = disponiblePermiso;
     }
     
     

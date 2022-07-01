@@ -10,6 +10,8 @@ import com.lucianovazquez.gestionrecursoshumanos.bo.TardanzaBO;
 import com.lucianovazquez.gestionrecursoshumanos.entity.Usuario;
 import javax.swing.JPanel;
 import java.time.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 
 /**
@@ -24,6 +26,8 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
     javax.swing.JPanel panel;
     javax.swing.JPanel panelSesion;
     MenuPrincipalUI panelMenu;
+    javax.swing.JPanel panelContenedor;
+    HistorialUI panelHistorial;
     Usuario usuario = new Usuario();
     InasistenciaBO inasistenciaBO = new InasistenciaBO();
     TardanzaBO tardanzaBO = new TardanzaBO();
@@ -31,15 +35,19 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
     
     public ControlAsistenciaUI(JPanel panelContenedor, Usuario usuario, JPanel panelSesion) {
         initComponents();
-        this.panel = panelContenedor;
+        this.panelContenedor = panelContenedor;
         this.panelSesion = panelSesion;
-        
+        jButtonHistorial.setEnabled(false);
         System.out.println("dia:" + dia);
         
-//        inasistenciaBO.listarInasistencia(jTable1, dia);
+        inasistenciaBO.listarInasistencia(jTable1, dia);
         tardanzaBO.listarTardanza(jTable2, dia);
         //permisoBO.listarPermiso(jTable3);
-        
+        jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event){
+                jButtonHistorial.setEnabled(true);
+            }
+        });
     }
 
     
@@ -64,7 +72,8 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jButton1 = new javax.swing.JButton();
+        jTable3 = new javax.swing.JTable();
+        jButtonHistorial = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButtonBuscarDia = new javax.swing.JButton();
@@ -92,7 +101,7 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
 
             },
             new String [] {
-                "N° ", "Nombre", "Apellido", "Repartición", "Tipo", "Turno"
+                "N° ", "Nombre", "Apellido", "D.N.I.", "Repartición", "Tipo", "Turno"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -127,12 +136,40 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
         }
 
         jTabbedPane1.addTab("Tardanzas", jScrollPane2);
+
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "N°", "Nombre", "Apellido", "Repartición", "Tiempo", "Turno"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable3.setIntercellSpacing(new java.awt.Dimension(2, 2));
+        jScrollPane3.setViewportView(jTable3);
+        if (jTable3.getColumnModel().getColumnCount() > 0) {
+            jTable3.getColumnModel().getColumn(0).setPreferredWidth(2);
+        }
+
         jTabbedPane1.addTab("Permisos", jScrollPane3);
 
-        jButton1.setText("Consultar Historial");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonHistorial.setText("Consultar Historial");
+        jButtonHistorial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonHistorialActionPerformed(evt);
             }
         });
 
@@ -166,7 +203,7 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton1)
+                            .addComponent(jButtonHistorial)
                             .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 708, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(41, 41, 41))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -181,13 +218,13 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(236, 236, 236)
+                        .addGap(263, 263, 263)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(204, 204, 204)
                         .addComponent(jButton2)
                         .addGap(71, 71, 71)
-                        .addComponent(jButton3))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(263, 263, 263)
-                        .addComponent(jLabel3)))
+                        .addComponent(jButton3)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -199,18 +236,17 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonBuscarDia, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jLabel4)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(jButtonHistorial)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
-                .addGap(40, 40, 40))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -225,9 +261,27 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jButtonHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHistorialActionPerformed
+    String dni;
+    
+        if(jScrollPane1.isVisible()){
+            dni = String.valueOf(jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 3));
+            System.out.println("ITEM TABLA 1:" + dni);
+            panelHistorial = new HistorialUI (panelContenedor, panelSesion, dni);
+            panelContenedor.add(panelHistorial);
+            panelHistorial.setVisible(true);
+            this.setVisible(false);
+            
+        }
+        if(jScrollPane2.isVisible()){
+            dni = String.valueOf(jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 3));
+            System.out.println("ITEM TABLA 2:" + dni);
+            panelHistorial = new HistorialUI (panelContenedor, panelSesion, dni);
+            panelContenedor.add(panelHistorial);
+            panelHistorial.setVisible(true);
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_jButtonHistorialActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        panelMenu = new MenuPrincipalUI(panel,usuario, panelSesion);
@@ -241,17 +295,17 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButtonBuscarDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarDiaActionPerformed
-        LocalDate dia = jDateChooser1.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-         inasistenciaBO.listarInasistencia(jTable1, dia);
-         tardanzaBO.listarTardanza(jTable2, dia);
+         LocalDate Jdate = jDateChooser1.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+         inasistenciaBO.listarInasistencia(jTable1, Jdate);
+         tardanzaBO.listarTardanza(jTable2, Jdate);
     }//GEN-LAST:event_jButtonBuscarDiaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButtonBuscarDia;
+    private javax.swing.JButton jButtonHistorial;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -260,8 +314,10 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
     // End of variables declaration//GEN-END:variables
 }

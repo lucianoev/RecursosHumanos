@@ -26,9 +26,9 @@ String mensaje = "";
     
     ina.setId_inasistencia(3);
     ina.setId_empleado(4);
-    ina.setDiaInasistencia("2022-06-26");
-    ina.setTipo("Injustificada");
-    ina.setObservacionInasistencia("Varias inasistencias en el mes");
+    ina.setDiaInasistencia("2022-06-30");
+    ina.setTipo("justificada");
+    ina.setObservacionInasistencia("Varias ");
     
     
     mensaje = inabo.insert(ina);

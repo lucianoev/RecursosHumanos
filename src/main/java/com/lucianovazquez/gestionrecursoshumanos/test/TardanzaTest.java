@@ -26,8 +26,8 @@ String mensaje = "";
     
     tar.setId_tardanza(3);
     tar.setId_empleado(4);
-    tar.setDiaTardanza("2022-06-26");
-    tar.setTiempoTardanza("12:07:21");
+    tar.setDiaTardanza("2022-06-27");
+    tar.setTiempoTardanza("11:07:52");
     tar.setObservacionTardanza("En espera de información");
     
     

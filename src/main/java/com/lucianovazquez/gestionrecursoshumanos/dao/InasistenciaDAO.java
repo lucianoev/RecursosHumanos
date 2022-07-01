@@ -7,11 +7,13 @@ package com.lucianovazquez.gestionrecursoshumanos.dao;
 
 import com.lucianovazquez.gestionrecursoshumanos.entity.Inasistencia;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -49,6 +51,39 @@ public class InasistenciaDAO {
     }
 
     public void listarInasistencia(JTable tabla, LocalDate dia) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+      DefaultTableModel model;
+        String[] columnas = {"N°","Nombre","Apellido","D.N.I.","Repartición","Tipo","Turno"};
+        model = new DefaultTableModel(null,columnas);
+        String sql = "SELECT row_number() OVER (ORDER BY tipo) AS id_inasistencia, nombre, apellido, dni, nombreReparticion, tipo, turno FROM inasistencia INNER JOIN empleado ON inasistencia.id_empleado = empleado.id_empleado INNER JOIN reparticion ON empleado.id_reparticion = reparticion.id_reparticion WHERE diaInasistencia=?";
+        String [] filas = new String [7];
+        
+        System.out.println("CARGA TABLA INASISTENCIA");
+        
+        ResultSet rs = null;
+        
+        try {
+            PreparedStatement pst = ConexionDAO.getConnection().prepareStatement(sql);
+            System.out.println("Dia tabla inasistencia:"+dia.toString());
+            pst.setString(1, dia.toString());
+
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                for (int i = 0; i < 6; i++) {
+                    filas[i] = rs.getString(i + 1);
+                }
+                model.addRow(filas);
+            }
+            tabla.setModel(model);
+
+        } catch (Exception e) {
+            System.out.println("ERROR AL CARGAR TABLA INASISTENCIA" + e.getMessage());
+        } finally {
+            try {
+                ConexionDAO.closeConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(InasistenciaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

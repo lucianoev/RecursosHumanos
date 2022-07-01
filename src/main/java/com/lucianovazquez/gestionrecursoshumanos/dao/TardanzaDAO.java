@@ -60,10 +60,10 @@ public class TardanzaDAO  {
     public void listarTardanza(JTable tabla, LocalDate dia) {
         
         DefaultTableModel model;
-        String[] columnas = {"N° Tardanza","Nombre","Apellido","Repartición","Tiempo","Turno"};
+        String[] columnas = {"N°","Nombre","Apellido","D.N.I.","Repartición","Tiempo","Turno"};
         model = new DefaultTableModel(null,columnas);
-        String sql = "SELECT row_number() OVER (ORDER BY tiempoTardanza) AS id_tardanza, nombre, apellido, nombreReparticion, tiempoTardanza, turno FROM tardanza INNER JOIN empleado ON tardanza.id_empleado = empleado.id_empleado INNER JOIN reparticion ON empleado.id_reparticion = reparticion.id_reparticion WHERE diaTardanza=?";
-        String [] filas = new String [6];
+        String sql = "SELECT row_number() OVER (ORDER BY tiempoTardanza) AS id_tardanza, nombre, apellido, dni, nombreReparticion, tiempoTardanza, turno FROM tardanza INNER JOIN empleado ON tardanza.id_empleado = empleado.id_empleado INNER JOIN reparticion ON empleado.id_reparticion = reparticion.id_reparticion WHERE diaTardanza=?";
+        String [] filas = new String [7];
         
         System.out.println("CARGA TABLA TARDANZA");
         
@@ -77,7 +77,7 @@ public class TardanzaDAO  {
 
             rs = pst.executeQuery();
             while (rs.next()) {
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i < 6; i++) {
                     filas[i] = rs.getString(i + 1);
                 }
                 model.addRow(filas);
