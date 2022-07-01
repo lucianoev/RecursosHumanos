@@ -37,7 +37,7 @@ public class EmpleadoDAO {
         preparedStatement.setString(9, empleado.getEstadoEmpleado());
         preparedStatement.setString(10, empleado.getTurno());
         preparedStatement.setInt(11, empleado.getDisponibleLicencia());
-        preparedStatement.setInt(12, empleado.getDsponiblePermiso());
+        preparedStatement.setInt(12, empleado.getDisponiblePermiso());
         preparedStatement.execute();
         mensaje = "Creado Correctamente";
                                                  

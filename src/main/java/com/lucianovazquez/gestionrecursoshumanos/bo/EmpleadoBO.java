@@ -53,7 +53,7 @@ public class EmpleadoBO {
                empleado.setEstadoEmpleado(rs.getString(10));
                empleado.setTurno(rs.getString(11));
                empleado.setDisponibleLicencia(rs.getInt(12));
-               empleado.setDsponiblePermiso(rs.getInt(13));
+               empleado.setDisponiblePermiso(rs.getInt(13));
            }
        } catch (Exception e){
            System.out.println("ERROR AL BUSCAR EMPLEADO POR DNI: " + e.getMessage());

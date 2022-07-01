@@ -5,14 +5,20 @@
  */
 package com.lucianovazquez.gestionrecursoshumanos.bo;
 
+import com.lucianovazquez.gestionrecursoshumanos.dao.ReparticionDAO;
+import com.lucianovazquez.gestionrecursoshumanos.entity.Reparticion;
+
 /**
  *
  * @author Lenovo 3
  */
 public class ReparticionBO {
+    private ReparticionDAO rep = new ReparticionDAO();
+    private Reparticion reparticion = new Reparticion();
 
-    public Object recuperar(String dni) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Reparticion buscarReparticion(int id) {
+        reparticion = rep.buscarReparticion(id);
+        return reparticion;
     }
     
 }

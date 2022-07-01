@@ -34,7 +34,7 @@ String mensaje = "";
     emp.setEstadoEmpleado("Fuera de puesto laboral");
     emp.setTurno("mañana");
     emp.setDisponibleLicencia(30);
-    emp.setDsponiblePermiso(5);
+    emp.setDisponiblePermiso(5);
     
     mensaje = empbo.insert(emp);
     System.out.println("expediente test mensaje:" + mensaje);

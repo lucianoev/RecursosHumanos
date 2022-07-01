@@ -31,19 +31,33 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
     Usuario usuario = new Usuario();
     InasistenciaBO inasistenciaBO = new InasistenciaBO();
     TardanzaBO tardanzaBO = new TardanzaBO();
-     LocalDate dia = LocalDate.now();
+    LocalDate dia = LocalDate.now();
     
     public ControlAsistenciaUI(JPanel panelContenedor, Usuario usuario, JPanel panelSesion) {
         initComponents();
         this.panelContenedor = panelContenedor;
         this.panelSesion = panelSesion;
+        this.usuario = usuario;
         jButtonHistorial.setEnabled(false);
+        jLabelDia.setText(String.valueOf(dia));
         System.out.println("dia:" + dia);
         
         inasistenciaBO.listarInasistencia(jTable1, dia);
         tardanzaBO.listarTardanza(jTable2, dia);
         //permisoBO.listarPermiso(jTable3);
+        
+        
         jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event){
+                jButtonHistorial.setEnabled(true);
+            }
+        });
+        jTable2.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event){
+                jButtonHistorial.setEnabled(true);
+            }
+        });
+        jTable3.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event){
                 jButtonHistorial.setEnabled(true);
             }
@@ -63,7 +77,7 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jLabelDia = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel5 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -90,8 +104,8 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel3.setText("Control de Asistencia");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("Miércoles 11 de Mayo de 2022 ");
+        jLabelDia.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabelDia.setText("Miércoles 11 de Mayo de 2022 ");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Buscar día:");
@@ -207,7 +221,7 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
                             .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 708, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(41, 41, 41))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addComponent(jLabelDia)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -235,7 +249,7 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
                 .addGap(38, 38, 38)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonBuscarDia, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel4)
+                    .addComponent(jLabelDia)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -267,7 +281,7 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
         if(jScrollPane1.isVisible()){
             dni = String.valueOf(jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 3));
             System.out.println("ITEM TABLA 1:" + dni);
-            panelHistorial = new HistorialUI (panelContenedor, panelSesion, dni);
+            panelHistorial = new HistorialUI (panelContenedor, panelSesion, usuario, dni);
             panelContenedor.add(panelHistorial);
             panelHistorial.setVisible(true);
             this.setVisible(false);
@@ -276,7 +290,7 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
         if(jScrollPane2.isVisible()){
             dni = String.valueOf(jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 3));
             System.out.println("ITEM TABLA 2:" + dni);
-            panelHistorial = new HistorialUI (panelContenedor, panelSesion, dni);
+            panelHistorial = new HistorialUI (panelContenedor, panelSesion, usuario, dni);
             panelContenedor.add(panelHistorial);
             panelHistorial.setVisible(true);
             this.setVisible(false);
@@ -284,8 +298,8 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonHistorialActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       panelMenu = new MenuPrincipalUI(panel,usuario, panelSesion);
-       panel.add(panelMenu);
+       panelMenu = new MenuPrincipalUI(panelContenedor,usuario, panelSesion);
+       panelContenedor.add(panelMenu);
        panelMenu.setVisible(true);
        this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -308,13 +322,12 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
     private javax.swing.JButton jButtonHistorial;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabelDia;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;

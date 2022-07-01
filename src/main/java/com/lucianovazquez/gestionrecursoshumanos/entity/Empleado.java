@@ -141,11 +141,11 @@ public class Empleado  {
         this.disponibleLicencia = disponibleLicencia;
     }
 
-    public int getDsponiblePermiso() {
+    public int getDisponiblePermiso() {
         return disponiblePermiso;
     }
 
-    public void setDsponiblePermiso(int disponiblePermiso) {
+    public void setDisponiblePermiso(int disponiblePermiso) {
         this.disponiblePermiso = disponiblePermiso;
     }
     
