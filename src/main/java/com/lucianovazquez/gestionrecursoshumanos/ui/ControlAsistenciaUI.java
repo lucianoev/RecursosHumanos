@@ -6,13 +6,13 @@
 package com.lucianovazquez.gestionrecursoshumanos.ui;
 
 import com.lucianovazquez.gestionrecursoshumanos.bo.InasistenciaBO;
+import com.lucianovazquez.gestionrecursoshumanos.bo.PermisoBO;
 import com.lucianovazquez.gestionrecursoshumanos.bo.TardanzaBO;
 import com.lucianovazquez.gestionrecursoshumanos.entity.Usuario;
 import javax.swing.JPanel;
 import java.time.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 
 /**
  *
@@ -31,8 +31,9 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
     Usuario usuario = new Usuario();
     InasistenciaBO inasistenciaBO = new InasistenciaBO();
     TardanzaBO tardanzaBO = new TardanzaBO();
+    PermisoBO permisoBO = new PermisoBO();
     LocalDate dia = LocalDate.now();
-    
+
     public ControlAsistenciaUI(JPanel panelContenedor, Usuario usuario, JPanel panelSesion) {
         initComponents();
         this.panelContenedor = panelContenedor;
@@ -41,30 +42,27 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
         jButtonHistorial.setEnabled(false);
         jLabelDia.setText(String.valueOf(dia));
         System.out.println("dia:" + dia);
-        
+
         inasistenciaBO.listarInasistencia(jTable1, dia);
         tardanzaBO.listarTardanza(jTable2, dia);
-        //permisoBO.listarPermiso(jTable3);
-        
-        
-        jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-            public void valueChanged(ListSelectionEvent event){
+        permisoBO.listarPermisosDia(jTable3, dia);
+
+        jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
                 jButtonHistorial.setEnabled(true);
             }
         });
-        jTable2.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-            public void valueChanged(ListSelectionEvent event){
+        jTable2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
                 jButtonHistorial.setEnabled(true);
             }
         });
-        jTable3.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-            public void valueChanged(ListSelectionEvent event){
+        jTable3.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
                 jButtonHistorial.setEnabled(true);
             }
         });
     }
-
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -276,32 +274,42 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHistorialActionPerformed
-    String dni;
-    
-        if(jScrollPane1.isVisible()){
+        String dni;
+
+        if (jTable1.isShowing()) {
             dni = String.valueOf(jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 3));
             System.out.println("ITEM TABLA 1:" + dni);
-            panelHistorial = new HistorialUI (panelContenedor, panelSesion, usuario, dni);
+            panelHistorial = new HistorialUI(panelContenedor, panelSesion, usuario, dni);
             panelContenedor.add(panelHistorial);
             panelHistorial.setVisible(true);
             this.setVisible(false);
-            
         }
-        if(jScrollPane2.isVisible()){
-            dni = String.valueOf(jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 3));
+        if (jTable2.isShowing()) {
+            dni = String.valueOf(jTable2.getModel().getValueAt(jTable2.getSelectedRow(), 3));
             System.out.println("ITEM TABLA 2:" + dni);
-            panelHistorial = new HistorialUI (panelContenedor, panelSesion, usuario, dni);
+            panelHistorial = new HistorialUI(panelContenedor, panelSesion, usuario, dni);
             panelContenedor.add(panelHistorial);
             panelHistorial.setVisible(true);
             this.setVisible(false);
         }
+        if (jTable3.isShowing()) {
+            dni = String.valueOf(jTable3.getModel().getValueAt(jTable3.getSelectedRow(), 3));
+            System.out.println("ITEM TABLA 3:" + dni);
+            panelHistorial = new HistorialUI(panelContenedor, panelSesion, usuario, dni);
+            panelContenedor.add(panelHistorial);
+            panelHistorial.setVisible(true);
+            this.setVisible(false);
+
+        }
+
+
     }//GEN-LAST:event_jButtonHistorialActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       panelMenu = new MenuPrincipalUI(panelContenedor,usuario, panelSesion);
-       panelContenedor.add(panelMenu);
-       panelMenu.setVisible(true);
-       this.setVisible(false);
+        panelMenu = new MenuPrincipalUI(panelContenedor, usuario, panelSesion);
+        panelContenedor.add(panelMenu);
+        panelMenu.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -309,9 +317,9 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButtonBuscarDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarDiaActionPerformed
-         LocalDate Jdate = jDateChooser1.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-         inasistenciaBO.listarInasistencia(jTable1, Jdate);
-         tardanzaBO.listarTardanza(jTable2, Jdate);
+        LocalDate Jdate = jDateChooser1.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        inasistenciaBO.listarInasistencia(jTable1, Jdate);
+        tardanzaBO.listarTardanza(jTable2, Jdate);
     }//GEN-LAST:event_jButtonBuscarDiaActionPerformed
 
 

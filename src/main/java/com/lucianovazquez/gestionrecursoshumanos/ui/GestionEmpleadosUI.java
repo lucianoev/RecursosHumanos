@@ -5,6 +5,7 @@
  */
 package com.lucianovazquez.gestionrecursoshumanos.ui;
 
+import com.lucianovazquez.gestionrecursoshumanos.bo.EmpleadoBO;
 import com.lucianovazquez.gestionrecursoshumanos.entity.Usuario;
 
 /**
@@ -21,6 +22,7 @@ public class GestionEmpleadosUI extends javax.swing.JPanel {
     javax.swing.JPanel panelSesion;
     Usuario usuario = new Usuario();
     MenuPrincipalUI panelMenu;
+    EmpleadoBO empBO = new EmpleadoBO();
     
     
     public GestionEmpleadosUI(javax.swing.JPanel panelContenedor, Usuario sesionUsuario, javax.swing.JPanel panelSesion) {
@@ -89,9 +91,12 @@ public class GestionEmpleadosUI extends javax.swing.JPanel {
             }
         });
 
-        jTextField1.setText("Ingrese valor");
-
         jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Volver al Menú Principal");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -203,6 +208,16 @@ public class GestionEmpleadosUI extends javax.swing.JPanel {
        panelMenu.setVisible(true);
        this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+      String tipo = String.valueOf(jComboBox1.getSelectedItem());
+      if(tipo.equals("DNI")){
+          empBO.listarEmpleadosDni(jTable1, Integer.valueOf(jTextField1.getText()));
+      }
+      if(tipo.equals("N° de Legajo")){
+          empBO.listarEmpleadosId(jTable1, Integer.valueOf(jTextField1.getText()));
+      }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

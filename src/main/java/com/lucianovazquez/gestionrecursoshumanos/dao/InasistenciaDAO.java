@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class InasistenciaDAO {
     private String mensaje = "";
-    private Inasistencia inasistencia;
+    
     
     private static final String INSERT_QUERY = "INSERT INTO inasistencia (id_inasistencia, id_empleado, diaInasistencia, tipo, observacionInasistencia)"
             + "VALUES (id_inasistencia=LAST_INSERT_ID(id_inasistencia+1),?,?,?,?)";
@@ -52,7 +52,7 @@ public class InasistenciaDAO {
 
     public void listarInasistencia(JTable tabla, LocalDate dia) {
         
-      DefaultTableModel model;
+        DefaultTableModel model;
         String[] columnas = {"N°","Nombre","Apellido","D.N.I.","Repartición","Tipo","Turno"};
         model = new DefaultTableModel(null,columnas);
         String sql = "SELECT row_number() OVER (ORDER BY tipo) AS id_inasistencia, nombre, apellido, dni, nombreReparticion, tipo, turno FROM inasistencia INNER JOIN empleado ON inasistencia.id_empleado = empleado.id_empleado INNER JOIN reparticion ON empleado.id_reparticion = reparticion.id_reparticion WHERE diaInasistencia=?";

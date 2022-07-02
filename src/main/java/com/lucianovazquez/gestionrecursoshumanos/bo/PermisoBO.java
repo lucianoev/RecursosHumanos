@@ -5,10 +5,19 @@
  */
 package com.lucianovazquez.gestionrecursoshumanos.bo;
 
+import com.lucianovazquez.gestionrecursoshumanos.dao.PermisoDAO;
+import java.time.LocalDate;
+import javax.swing.JTable;
+
 /**
  *
  * @author Lenovo 3
  */
 public class PermisoBO {
+    PermisoDAO per = new PermisoDAO ();
+
+    public void listarPermisosDia(JTable jTable3, LocalDate dia) {
+        per.listarPermisosDia(jTable3,dia);
+    }
     
 }
