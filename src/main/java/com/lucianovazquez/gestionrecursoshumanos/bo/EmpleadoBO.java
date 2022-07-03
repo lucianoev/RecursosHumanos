@@ -64,4 +64,12 @@ public class EmpleadoBO {
         }
     }
 
+    public void listarEmpleadosApellido(JTable tabla, String apellido) {
+        try {
+            emp.listarEmpleadosApellido(tabla, apellido);
+        } catch (Exception e) {
+            mensaje = mensaje + "" + e.getMessage();
+        }
+    }
+
 }
