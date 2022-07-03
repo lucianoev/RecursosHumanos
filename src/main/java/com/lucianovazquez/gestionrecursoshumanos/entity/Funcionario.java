@@ -11,13 +11,17 @@ package com.lucianovazquez.gestionrecursoshumanos.entity;
  */
 public class Funcionario  {
     private int id_funcionario;
-    private int id_repartición;
+    private int id_reparticion;
     private String nombreFuncionario;
 
-    public Funcionario(int id_funcionario, int id_repartición, String nombreFuncionario) {
+    public Funcionario(int id_funcionario, int id_reparticion, String nombreFuncionario) {
         this.id_funcionario = id_funcionario;
-        this.id_repartición = id_repartición;
+        this.id_reparticion = id_reparticion;
         this.nombreFuncionario = nombreFuncionario;
+    }
+
+    public Funcionario() {
+  
     }
 
     public int getId_funcionario() {
@@ -28,12 +32,12 @@ public class Funcionario  {
         this.id_funcionario = id_funcionario;
     }
 
-    public int getId_repartición() {
-        return id_repartición;
+    public int getId_reparticion() {
+        return id_reparticion;
     }
 
-    public void setId_repartición(int id_repartición) {
-        this.id_repartición = id_repartición;
+    public void setId_reparticion(int id_reparticion) {
+        this.id_reparticion = id_reparticion;
     }
 
     public String getNombreFuncionario() {

@@ -107,15 +107,23 @@ public class GestionEmpleadosUI extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "N° Legajo", "Nombre", "Apellido", "D.N.I.", "Repartición", "Superior", "Turno"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -216,6 +224,9 @@ public class GestionEmpleadosUI extends javax.swing.JPanel {
       }
       if(tipo.equals("N° de Legajo")){
           empBO.listarEmpleadosId(jTable1, Integer.valueOf(jTextField1.getText()));
+      }
+      if(tipo.equals("Apellido")){
+      empBO.listarEmpleadosApellido(jTable1,jTextField1.getText());
       }
     }//GEN-LAST:event_jButton1ActionPerformed
 

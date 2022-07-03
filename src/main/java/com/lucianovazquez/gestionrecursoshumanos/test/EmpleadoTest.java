@@ -21,20 +21,20 @@ String mensaje = "";
     public void insertar() throws ClassNotFoundException, SQLException {
     
     
-    emp.setId_funcionario(1);
-    emp.setId_reparticion(5);
+    emp.setId_funcionario(3);
+    emp.setId_reparticion(3);
     
-    emp.setDni("34067850");
-    emp.setNombre("Luciano");
+    emp.setDni("34231432");
+    emp.setNombre("Juliana");
     emp.setApellido("Vazquez");
-    emp.setDomicilio("Cabral 336");
-    emp.setTelefono("3834287951");
-    emp.setEmail("eaea@gmail.com");
+    emp.setDomicilio("Maipu 2314");
+    emp.setTelefono("3834283213");
+    emp.setEmail("e23a@mail.com");
     
-    emp.setEstadoEmpleado("Fuera de puesto laboral");
-    emp.setTurno("mañana");
-    emp.setDisponibleLicencia(30);
-    emp.setDisponiblePermiso(5);
+    emp.setEstadoEmpleado("Licencia");
+    emp.setTurno("Tarde");
+    emp.setDisponibleLicencia(15);
+    emp.setDisponiblePermiso(1);
     
     mensaje = empbo.insert(emp);
     System.out.println("expediente test mensaje:" + mensaje);

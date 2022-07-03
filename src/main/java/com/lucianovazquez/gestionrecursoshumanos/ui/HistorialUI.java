@@ -6,6 +6,7 @@
 package com.lucianovazquez.gestionrecursoshumanos.ui;
 
 import com.lucianovazquez.gestionrecursoshumanos.bo.EmpleadoBO;
+import com.lucianovazquez.gestionrecursoshumanos.bo.FuncionarioBO;
 import com.lucianovazquez.gestionrecursoshumanos.bo.InasistenciaBO;
 import com.lucianovazquez.gestionrecursoshumanos.bo.ReparticionBO;
 import com.lucianovazquez.gestionrecursoshumanos.entity.Empleado;
@@ -26,6 +27,7 @@ public class HistorialUI extends javax.swing.JPanel {
     Empleado empleado = new Empleado();
     Usuario usuario = new Usuario();
     ReparticionBO reparticionBO = new ReparticionBO();
+    FuncionarioBO funcionarioBO = new FuncionarioBO();
     
     String dni;
     
@@ -41,9 +43,10 @@ public class HistorialUI extends javax.swing.JPanel {
         jLabelNumeroLegajo.setText(String.valueOf(empleado.getId_empleado()));
         jLabelTurno.setText(String.valueOf(empleado.getTurno()));
         jLabelReparticion.setText(reparticionBO.buscarReparticion(empleado.getId_reparticion()).getNombreReparticion());        
+        jLabelFuncionario.setText(funcionarioBO.buscarFuncionario(empleado.getId_funcionario()).getNombreFuncionario());
         jLabelEstado.setText(String.valueOf(empleado.getEstadoEmpleado()));
-        jLabelDisponiblePermiso.setText(String.valueOf(empleado.getDisponiblePermiso()));
-        jLabelDisponibleLicencia.setText(String.valueOf(empleado.getDisponibleLicencia()));
+        jLabelDisponiblePermiso.setText(String.valueOf(empleado.getDisponiblePermiso())+" horas");
+        jLabelDisponibleLicencia.setText(String.valueOf(empleado.getDisponibleLicencia())+" días");
     }
 
     /**
@@ -97,6 +100,8 @@ public class HistorialUI extends javax.swing.JPanel {
         jLabelNumeroLegajo = new javax.swing.JLabel();
         jLabelTurno = new javax.swing.JLabel();
         jLabelEstado = new javax.swing.JLabel();
+        jLabelFuncionario = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(800, 400));
         setMinimumSize(new java.awt.Dimension(800, 400));
@@ -250,7 +255,7 @@ public class HistorialUI extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "N° ", "Fecha", "Justificación", "Observaciones"
+                "N° ", "Día", "Justificación", "Observaciones"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -259,23 +264,31 @@ public class HistorialUI extends javax.swing.JPanel {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "N°", "Nombre", "Apellido", "Repartición", "Legajo N°", "Turno"
+                "N°", "Día", "Tiempo", "Observación"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTable2.setIntercellSpacing(new java.awt.Dimension(2, 2));
         jScrollPane2.setViewportView(jTable2);
 
@@ -283,21 +296,21 @@ public class HistorialUI extends javax.swing.JPanel {
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "N°", "Nombre", "Apellido", "Repartición", "Turno", "Hora Salida", "Hora Regreso", "Estado", "Observaciones"
+                "N°", "Día", "Hora Salida", "Hora Regreso", "Estado"
             }
         ));
         jTable3.setIntercellSpacing(new java.awt.Dimension(2, 2));
@@ -316,6 +329,11 @@ public class HistorialUI extends javax.swing.JPanel {
 
         jLabelEstado.setText("jLabel2");
 
+        jLabelFuncionario.setText("jLabel2");
+
+        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel19.setText("Funcionario a cargo:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -332,30 +350,28 @@ public class HistorialUI extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel4)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jLabelReparticion))
-                                            .addComponent(jLabel3))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel12)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jLabelEstado))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel11)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jLabelTurno)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .addComponent(jLabel19)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabelFuncionario))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel3)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel12)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(jLabelEstado))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel11)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(jLabelTurno))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(1, 1, 1)
+                                            .addComponent(jLabel4)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(jLabelReparticion))))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(113, 113, 113))
                                     .addGroup(layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabelNombreEmpleado)
@@ -365,7 +381,11 @@ public class HistorialUI extends javax.swing.JPanel {
                                         .addComponent(jLabelNumeroLegajo)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jButton5)
-                                        .addGap(29, 29, 29)))
+                                        .addGap(18, 18, 18))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(79, 79, 79)))
                                 .addComponent(jLabel13))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -425,16 +445,21 @@ public class HistorialUI extends javax.swing.JPanel {
                                 .addComponent(jLabel1)
                                 .addComponent(jLabelNumeroLegajo)))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(5, 5, 5)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabelReparticion))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabelFuncionario)
+                                    .addComponent(jLabel19))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel11)
                                     .addComponent(jLabelTurno))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel12)
                                     .addComponent(jLabelEstado)))
@@ -537,6 +562,7 @@ public class HistorialUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -544,6 +570,7 @@ public class HistorialUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabelDisponibleLicencia;
     private javax.swing.JLabel jLabelDisponiblePermiso;
     private javax.swing.JLabel jLabelEstado;
+    private javax.swing.JLabel jLabelFuncionario;
     private javax.swing.JLabel jLabelNombreEmpleado;
     private javax.swing.JLabel jLabelNumeroLegajo;
     private javax.swing.JLabel jLabelReparticion;
