@@ -98,4 +98,44 @@ public class TardanzaDAO  {
 
     
     
+    public void listarTardanzaEmpleadoRango(JTable tabla, LocalDate jdateInicio, LocalDate jdateFin, int id_empleado) {
+        DefaultTableModel model;
+        String[] columnas = {"N°", "Día", "Tiempo", "Observaciones"};
+        model = new DefaultTableModel(null, columnas);
+        String sql = "SELECT row_number() OVER (ORDER BY diaTardanza) AS id, diaTardanza, tiempoTardanza, observacionTardanza FROM tardanza WHERE id_empleado=? AND diaTardanza BETWEEN ? AND ?";
+        String[] filas = new String[4];
+
+        System.out.println("CARGA TABLA INASISTENCIA");
+
+        ResultSet rs = null;
+
+        try {
+            PreparedStatement pst = ConexionDAO.getConnection().prepareStatement(sql);
+            System.out.println("inasistencias entre:" + jdateInicio.toString() + " hasta" + jdateFin.toString());
+            pst.setInt(1, id_empleado);
+            pst.setString(2, jdateInicio.toString());
+            pst.setString(3, jdateFin.toString());
+
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                for (int i = 0; i < 3; i++) {
+                    filas[i] = rs.getString(i + 1);
+                }
+                model.addRow(filas);
+            }
+            tabla.setModel(model);
+
+        } catch (Exception e) {
+            System.out.println("ERROR AL CARGAR TABLA TARDANZA" + e.getMessage());
+        } finally {
+            try {
+                ConexionDAO.closeConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(TardanzaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    
+    
 }

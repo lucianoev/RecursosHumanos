@@ -57,4 +57,42 @@ public class PermisoDAO {
             }
         }
     }
+
+    public void listarPermisoEmpleadoRango(JTable tabla, LocalDate jdateInicio, LocalDate jdateFin, int id_empleado) {
+        DefaultTableModel model;
+        String[] columnas = {"N°", "Día", "Horario Salida","Horario Regreso", "Estado"};
+        model = new DefaultTableModel(null, columnas);
+        String sql = "SELECT row_number() OVER (ORDER BY diaPermiso) AS id, diaPermiso, horaInicio, horaFin, estadoPermiso FROM permiso WHERE id_empleado=? AND diaPermiso BETWEEN ? AND ?";
+        String[] filas = new String[5];
+
+        System.out.println("CARGA TABLA PERMISOS");
+
+        ResultSet rs = null;
+
+        try {
+            PreparedStatement pst = ConexionDAO.getConnection().prepareStatement(sql);
+            System.out.println("inasistencias entre:" + jdateInicio.toString() + " hasta" + jdateFin.toString());
+            pst.setInt(1, id_empleado);
+            pst.setString(2, jdateInicio.toString());
+            pst.setString(3, jdateFin.toString());
+
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                for (int i = 0; i < 4; i++) {
+                    filas[i] = rs.getString(i + 1);
+                }
+                model.addRow(filas);
+            }
+            tabla.setModel(model);
+
+        } catch (Exception e) {
+            System.out.println("ERROR AL CARGAR TABLA PERMISOS" + e.getMessage());
+        } finally {
+            try {
+                ConexionDAO.closeConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(PermisoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }

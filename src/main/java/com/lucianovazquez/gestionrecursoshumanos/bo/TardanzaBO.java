@@ -15,19 +15,24 @@ import java.time.*;
  * @author Lenovo 3
  */
 public class TardanzaBO {
+
     private String mensaje = "";
     private TardanzaDAO tar = new TardanzaDAO();
-    
-     public String insert (Tardanza tardanza){
-    try{
-        mensaje = tar.insert(tardanza);
-    }catch (ClassNotFoundException e){
-        mensaje = mensaje + "ERROR EN TARDANZABO" + e.getMessage() ;
+
+    public String insert(Tardanza tardanza) {
+        try {
+            mensaje = tar.insert(tardanza);
+        } catch (ClassNotFoundException e) {
+            mensaje = mensaje + "ERROR EN TARDANZABO" + e.getMessage();
+        }
+        return mensaje;
     }
-    return mensaje;
-    }
-    
+
     public void listarTardanza(JTable tabla, LocalDate dia) {
         tar.listarTardanza(tabla, dia);
+    }
+
+    public void listarTardanzaEmpleadoRango(JTable jTable1, LocalDate jdateInicio, LocalDate jdateFin, int id_empleado) {
+        tar.listarTardanzaEmpleadoRango(jTable1, jdateInicio, jdateFin, id_empleado);
     }
 }

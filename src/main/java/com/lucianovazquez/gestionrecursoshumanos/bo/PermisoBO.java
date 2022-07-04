@@ -19,5 +19,9 @@ public class PermisoBO {
     public void listarPermisosDia(JTable jTable3, LocalDate dia) {
         per.listarPermisosDia(jTable3,dia);
     }
+
+    public void listarPermisoEmpleadoRango(JTable jTable1, LocalDate jdateInicio, LocalDate jdateFin, int id_empleado) {
+        per.listarPermisoEmpleadoRango(jTable1,jdateInicio,jdateFin,id_empleado);
+    }
     
 }

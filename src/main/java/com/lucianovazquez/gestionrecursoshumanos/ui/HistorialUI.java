@@ -8,9 +8,18 @@ package com.lucianovazquez.gestionrecursoshumanos.ui;
 import com.lucianovazquez.gestionrecursoshumanos.bo.EmpleadoBO;
 import com.lucianovazquez.gestionrecursoshumanos.bo.FuncionarioBO;
 import com.lucianovazquez.gestionrecursoshumanos.bo.InasistenciaBO;
+import com.lucianovazquez.gestionrecursoshumanos.bo.PermisoBO;
 import com.lucianovazquez.gestionrecursoshumanos.bo.ReparticionBO;
+import com.lucianovazquez.gestionrecursoshumanos.bo.TardanzaBO;
 import com.lucianovazquez.gestionrecursoshumanos.entity.Empleado;
 import com.lucianovazquez.gestionrecursoshumanos.entity.Usuario;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Month;
+import java.time.ZoneId;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -28,25 +37,41 @@ public class HistorialUI extends javax.swing.JPanel {
     Usuario usuario = new Usuario();
     ReparticionBO reparticionBO = new ReparticionBO();
     FuncionarioBO funcionarioBO = new FuncionarioBO();
-    
+    InasistenciaBO inasistenciaBO = new InasistenciaBO();
+    TardanzaBO tardanzaBO = new TardanzaBO();
+    PermisoBO permisoBO = new PermisoBO();
+
     String dni;
-    
-    public HistorialUI(JPanel panelContenedor, JPanel panelSesion, Usuario usuario, String dni ) {
+
+    public HistorialUI(JPanel panelContenedor, JPanel panelSesion, Usuario usuario, String dni) {
         initComponents();
         this.dni = dni;
         this.panelContenedor = panelContenedor;
         this.panelSesion = panelSesion;
         this.usuario = usuario;
-        
+
         empleado = empleadoBO.buscarEmpleadoDni(dni);
-        jLabelNombreEmpleado.setText(String.valueOf(empleado.getNombre())+" "+empleado.getApellido());
+        jButtonBuscar.setEnabled(false);
+        jLabelNombreEmpleado.setText(String.valueOf(empleado.getNombre()) + " " + empleado.getApellido());
         jLabelNumeroLegajo.setText(String.valueOf(empleado.getId_empleado()));
         jLabelTurno.setText(String.valueOf(empleado.getTurno()));
-        jLabelReparticion.setText(reparticionBO.buscarReparticion(empleado.getId_reparticion()).getNombreReparticion());        
+        jLabelReparticion.setText(reparticionBO.buscarReparticion(empleado.getId_reparticion()).getNombreReparticion());
         jLabelFuncionario.setText(funcionarioBO.buscarFuncionario(empleado.getId_funcionario()).getNombreFuncionario());
         jLabelEstado.setText(String.valueOf(empleado.getEstadoEmpleado()));
-        jLabelDisponiblePermiso.setText(String.valueOf(empleado.getDisponiblePermiso())+" horas");
-        jLabelDisponibleLicencia.setText(String.valueOf(empleado.getDisponibleLicencia())+" días");
+        jLabelDisponiblePermiso.setText(String.valueOf(empleado.getDisponiblePermiso()) + " horas");
+        jLabelDisponibleLicencia.setText(String.valueOf(empleado.getDisponibleLicencia()) + " días");
+
+        jRadioButtonMes.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                jButtonBuscar.setEnabled(true);
+            }
+        });
+        jRadioButtonRango.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                jButtonBuscar.setEnabled(true);
+            }
+        });
+
     }
 
     /**
@@ -58,29 +83,27 @@ public class HistorialUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jButton5 = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jLabel14 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButtonBuscar = new javax.swing.JButton();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jDateChooser2 = new com.toedter.calendar.JDateChooser();
         jSeparator5 = new javax.swing.JSeparator();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButtonMes = new javax.swing.JRadioButton();
         jSeparator2 = new javax.swing.JSeparator();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButtonRango = new javax.swing.JRadioButton();
         jLabelNombreEmpleado = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -102,6 +125,9 @@ public class HistorialUI extends javax.swing.JPanel {
         jLabelEstado = new javax.swing.JLabel();
         jLabelFuncionario = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
+        jYearChooser1 = new com.toedter.calendar.JYearChooser();
+        jLabel2 = new javax.swing.JLabel();
+        jMonthChooser2 = new com.toedter.calendar.JMonthChooser();
 
         setMaximumSize(new java.awt.Dimension(800, 400));
         setMinimumSize(new java.awt.Dimension(800, 400));
@@ -123,28 +149,11 @@ public class HistorialUI extends javax.swing.JPanel {
         jLabel14.setForeground(new java.awt.Color(13, 49, 72));
         jLabel14.setText("Búsqueda Personalizada");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mayo" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
-            }
-        });
-
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 9)); // NOI18N
         jLabel15.setText("Mes:");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2022" }));
-        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox3ActionPerformed(evt);
-            }
-        });
-
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setText("Historial de Asistencia ");
-
-        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 9)); // NOI18N
-        jLabel16.setText("Año");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Repartición:");
@@ -163,10 +172,10 @@ public class HistorialUI extends javax.swing.JPanel {
             }
         });
 
-        jButton3.setText("Buscar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButtonBuscar.setText("Buscar");
+        jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButtonBuscarActionPerformed(evt);
             }
         });
 
@@ -176,21 +185,23 @@ public class HistorialUI extends javax.swing.JPanel {
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 9)); // NOI18N
         jLabel18.setText("Hasta:");
 
-        jRadioButton1.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
-        jRadioButton1.setText("Buscar por mes:");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup2.add(jRadioButtonMes);
+        jRadioButtonMes.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
+        jRadioButtonMes.setText("Por mes:");
+        jRadioButtonMes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                jRadioButtonMesActionPerformed(evt);
             }
         });
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jRadioButton2.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
-        jRadioButton2.setText("Buscar por rango:");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup2.add(jRadioButtonRango);
+        jRadioButtonRango.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
+        jRadioButtonRango.setText("Por rango:");
+        jRadioButtonRango.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                jRadioButtonRangoActionPerformed(evt);
             }
         });
 
@@ -334,6 +345,9 @@ public class HistorialUI extends javax.swing.JPanel {
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel19.setText("Funcionario a cargo:");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 9)); // NOI18N
+        jLabel2.setText("Año:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -341,7 +355,7 @@ public class HistorialUI extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(18, Short.MAX_VALUE)
                         .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(25, 25, 25)
@@ -393,38 +407,38 @@ public class HistorialUI extends javax.swing.JPanel {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jSeparator4)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addGap(0, 2, Short.MAX_VALUE)
+                                                .addComponent(jRadioButtonMes)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jLabel15)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jMonthChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabel2)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addComponent(jLabel14)
-                                                    .addComponent(jRadioButton2)
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addComponent(jRadioButton1)
-                                                        .addGap(18, 18, 18)
-                                                        .addComponent(jLabel15)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(jLabel16)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addGap(21, 21, 21)
-                                                        .addComponent(jLabel17)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                        .addComponent(jLabel18)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                        .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                        .addGap(20, 20, 20))
+                                                    .addComponent(jRadioButtonRango))
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(21, 21, 21)
+                                                .addComponent(jLabel17)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jLabel18)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(18, 18, 18))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(106, 106, 106)
-                                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(23, 23, 23))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addGap(56, 56, 56)
                 .addComponent(jButton1)
@@ -474,14 +488,15 @@ public class HistorialUI extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(7, 7, 7)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15)
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel16))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jRadioButtonMes)
+                                .addComponent(jLabel15)
+                                .addComponent(jLabel2)
+                                .addComponent(jMonthChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jYearChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton2)
+                        .addComponent(jRadioButtonRango)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -489,7 +504,7 @@ public class HistorialUI extends javax.swing.JPanel {
                             .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -497,7 +512,7 @@ public class HistorialUI extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         jPanel4.getAccessibleContext().setAccessibleName("");
@@ -507,17 +522,9 @@ public class HistorialUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
-
-    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox3ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Usuario usuario = new Usuario(); //Ver envio usuario vacio
-        
+
         panelControl = new ControlAsistenciaUI(panelContenedor, usuario, panelSesion);
         panelContenedor.add(panelControl);
         panelControl.setVisible(true);
@@ -525,32 +532,72 @@ public class HistorialUI extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       panelMenu = new MenuPrincipalUI(panelContenedor,usuario, panelSesion);
-       panelContenedor.add(panelMenu);
-       panelMenu.setVisible(true);
-       this.setVisible(false);
+        panelMenu = new MenuPrincipalUI(panelContenedor, usuario, panelSesion);
+        panelContenedor.add(panelMenu);
+        panelMenu.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+        if (jRadioButtonRango.isSelected()) {
+            LocalDate jdateInicio = jDateChooser1.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate jdateFin = jDateChooser2.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            if (!jdateInicio.isAfter(LocalDate.now()) && !jdateFin.isAfter(LocalDate.now())) {
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+                if (!jdateInicio.isAfter(jdateFin)) {
+                    System.out.println("Busqueda por Rango");
+                    inasistenciaBO.listarInasistenciaEmpleadoRango(jTable1,jdateInicio,jdateFin,empleado.getId_empleado());
+                    tardanzaBO.listarTardanzaEmpleadoRango(jTable2,jdateInicio,jdateFin,empleado.getId_empleado());
+                    permisoBO.listarPermisoEmpleadoRango(jTable3,jdateInicio,jdateFin,empleado.getId_empleado());
+                    
+                } else {
+                    JOptionPane.showMessageDialog(null, "La fecha final ingresada debe ser posterior a la fecha inicial en el rango de búsqueda",
+                            "Por favor ingrese una fecha válida", JOptionPane.ERROR_MESSAGE);
+
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "La fecha ingresada no puede ser posterior a la fecha actual",
+                        "Por favor ingrese una fecha válida", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+
+            int mesActual = LocalDate.now().getMonthValue();
+            int jdateMes = jMonthChooser2.getMonth();
+            int añoActual = LocalDate.now().getYear();
+            int jdateAño = jYearChooser1.getYear();
+
+            System.out.println("Mes actual:" + mesActual + " Mes ingresado: " + jdateMes);
+            if (jdateAño <= añoActual) {
+                if (jdateMes <= mesActual) {
+                    System.out.println("busqueda por mes");
+                } else {
+                    JOptionPane.showMessageDialog(null, "No puede ingresar un mes posterior al actual para realizar la búsqueda",
+                            "Mes inválido", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No puede ingresar un año posterior al actual para realizar la búsqueda",
+                        "Año inválido", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+    }//GEN-LAST:event_jButtonBuscarActionPerformed
+
+    private void jRadioButtonMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+    }//GEN-LAST:event_jRadioButtonMesActionPerformed
+
+    private void jRadioButtonRangoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonRangoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButtonRangoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JButton jButtonBuscar;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
@@ -559,10 +606,10 @@ public class HistorialUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -575,9 +622,10 @@ public class HistorialUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabelNumeroLegajo;
     private javax.swing.JLabel jLabelReparticion;
     private javax.swing.JLabel jLabelTurno;
+    private com.toedter.calendar.JMonthChooser jMonthChooser2;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButtonMes;
+    private javax.swing.JRadioButton jRadioButtonRango;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -589,5 +637,6 @@ public class HistorialUI extends javax.swing.JPanel {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
+    private com.toedter.calendar.JYearChooser jYearChooser1;
     // End of variables declaration//GEN-END:variables
 }

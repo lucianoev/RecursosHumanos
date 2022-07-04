@@ -320,6 +320,7 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
         LocalDate Jdate = jDateChooser1.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         inasistenciaBO.listarInasistencia(jTable1, Jdate);
         tardanzaBO.listarTardanza(jTable2, Jdate);
+        permisoBO.listarPermisosDia(jTable3, Jdate);
     }//GEN-LAST:event_jButtonBuscarDiaActionPerformed
 
 

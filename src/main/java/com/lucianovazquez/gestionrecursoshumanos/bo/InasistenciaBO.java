@@ -10,36 +10,42 @@ import com.lucianovazquez.gestionrecursoshumanos.entity.Inasistencia;
 import javax.swing.JTable;
 import java.time.*;
 import java.util.TimerTask;
+
 /**
  *
  * @author Lenovo 3
  */
 public class InasistenciaBO extends TimerTask {
-    
+
     private String mensaje = "";
     private InasistenciaDAO ina = new InasistenciaDAO();
 //    private InasistenciaBO inabo = new InasistenciaBO();
-    
-    public String insert (Inasistencia inasistencia){
-    try{
-        mensaje = ina.insert(inasistencia);
-    }catch (Exception e){
-        mensaje = mensaje + "" + e.getMessage();
+
+    public String insert(Inasistencia inasistencia) {
+        try {
+            mensaje = ina.insert(inasistencia);
+        } catch (Exception e) {
+            mensaje = mensaje + "" + e.getMessage();
+        }
+        return mensaje;
     }
-    return mensaje;
-    }
-    
-     public void listarInasistencia(JTable tabla, LocalDate dia) {
+
+    public void listarInasistencia(JTable tabla, LocalDate dia) {
         ina.listarInasistencia(tabla, dia);
     }
 
     @Override
     public void run() {
-        try{
-        
-        }catch (Exception e){
-    }
+        try {
+
+        } catch (Exception e) {
+        }
     }
 
-    
+    public void listarInasistenciaEmpleadoRango(JTable jTable1, LocalDate jdateInicio, LocalDate jdateFin, int id_empleado) {
+        ina.listaInasistenciaEmpleadoRango(jTable1, jdateInicio, jdateFin, id_empleado);
+    }
+
+   
+
 }
