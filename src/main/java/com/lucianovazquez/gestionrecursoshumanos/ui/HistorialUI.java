@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
+import java.time.YearMonth;
 import java.time.ZoneId;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -489,11 +490,12 @@ public class HistorialUI extends javax.swing.JPanel {
                         .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(7, 7, 7)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jRadioButtonMes)
-                                .addComponent(jLabel15)
-                                .addComponent(jLabel2)
-                                .addComponent(jMonthChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jMonthChooser2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jRadioButtonMes)
+                                    .addComponent(jLabel15)
+                                    .addComponent(jLabel2)))
                             .addComponent(jYearChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jRadioButtonRango)
@@ -519,7 +521,19 @@ public class HistorialUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        
+        String lineSep = System.lineSeparator();
+        StringBuffer result = new StringBuffer();
+        result.append("Información Personal y de Contacto").append(lineSep).append(lineSep);
+        result.append("Nombre: ").append(empleado.getNombre()).append(lineSep);
+        result.append("Apellido: ").append(empleado.getApellido()).append(lineSep);
+        result.append("D.N.I: ").append(empleado.getDni()).append(lineSep);
+        result.append("Domicilio: ").append(empleado.getDomicilio()).append(lineSep);
+        result.append("Telefono: ").append(empleado.getTelefono()).append(lineSep);
+        result.append("Email: ").append(empleado.getEmail()).append(lineSep);
+        result.append("").append(lineSep);
+        
+        JOptionPane.showMessageDialog(null, result.toString());
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -547,10 +561,10 @@ public class HistorialUI extends javax.swing.JPanel {
 
                 if (!jdateInicio.isAfter(jdateFin)) {
                     System.out.println("Busqueda por Rango");
-                    inasistenciaBO.listarInasistenciaEmpleadoRango(jTable1,jdateInicio,jdateFin,empleado.getId_empleado());
-                    tardanzaBO.listarTardanzaEmpleadoRango(jTable2,jdateInicio,jdateFin,empleado.getId_empleado());
-                    permisoBO.listarPermisoEmpleadoRango(jTable3,jdateInicio,jdateFin,empleado.getId_empleado());
-                    
+                    inasistenciaBO.listarInasistenciaEmpleadoRango(jTable1, jdateInicio, jdateFin, empleado.getId_empleado());
+                    tardanzaBO.listarTardanzaEmpleadoRango(jTable2, jdateInicio, jdateFin, empleado.getId_empleado());
+                    permisoBO.listarPermisoEmpleadoRango(jTable3, jdateInicio, jdateFin, empleado.getId_empleado());
+
                 } else {
                     JOptionPane.showMessageDialog(null, "La fecha final ingresada debe ser posterior a la fecha inicial en el rango de búsqueda",
                             "Por favor ingrese una fecha válida", JOptionPane.ERROR_MESSAGE);
@@ -563,14 +577,23 @@ public class HistorialUI extends javax.swing.JPanel {
         } else {
 
             int mesActual = LocalDate.now().getMonthValue();
-            int jdateMes = jMonthChooser2.getMonth();
+            int jdateMes = jMonthChooser2.getMonth() + 1;
             int añoActual = LocalDate.now().getYear();
             int jdateAño = jYearChooser1.getYear();
+
+            //Genero Fecha inicio y fin del mes y año ingresado en busqueda personalizada (por mes) para reutilizar los métodos creados en la opción de búsqueda por rango
+            YearMonth fechaAux = YearMonth.of(jdateAño, jdateMes);
+            LocalDate fechaInicio = LocalDate.of(jdateAño, jdateMes, 1);
+            LocalDate fechaFin = LocalDate.of(jdateAño, jdateMes, fechaAux.lengthOfMonth());
 
             System.out.println("Mes actual:" + mesActual + " Mes ingresado: " + jdateMes);
             if (jdateAño <= añoActual) {
                 if (jdateMes <= mesActual) {
-                    System.out.println("busqueda por mes");
+                    System.out.println("busqueda en el mes" + jdateMes + " del año: " + jdateAño);
+                    inasistenciaBO.listarInasistenciaEmpleadoRango(jTable1, fechaInicio, fechaFin, empleado.getId_empleado());
+                    tardanzaBO.listarTardanzaEmpleadoRango(jTable2, fechaInicio, fechaFin, empleado.getId_empleado());
+                    permisoBO.listarPermisoEmpleadoRango(jTable3, fechaInicio, fechaFin, empleado.getId_empleado());
+
                 } else {
                     JOptionPane.showMessageDialog(null, "No puede ingresar un mes posterior al actual para realizar la búsqueda",
                             "Mes inválido", JOptionPane.ERROR_MESSAGE);
