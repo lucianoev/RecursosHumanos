@@ -7,6 +7,8 @@ package com.lucianovazquez.gestionrecursoshumanos.bo;
 
 import com.lucianovazquez.gestionrecursoshumanos.dao.UsuarioDAO;
 import com.lucianovazquez.gestionrecursoshumanos.entity.Usuario;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 
 /**
  *
@@ -17,21 +19,34 @@ public class UsuarioBO {
     private String mensaje = "";
     private UsuarioDAO usu = new UsuarioDAO();
     Usuario recupusuario;
-    Usuario usuario = new Usuario();
+    Usuario usua = new Usuario();
 
-    public boolean loginUsuario(String usuario, String contraseña) {
-        boolean login = false;
+    public Usuario loginUsuario(String nombreUsuario) {
+        
         try {
-            login = usu.loginUsuario(usuario, contraseña);
+            usua = usu.loginUsuario(nombreUsuario);
         } catch (Exception e) {
             mensaje = mensaje + "ERROR AL LOGUEARSE" + e.getMessage();
         }
-        return login;
+        return usua;
     }
 
-    public Usuario sesionUsuario() {
+    /*public Usuario sesionUsuario() {
         recupusuario = usu.sesionUsuario();
         return recupusuario;
+    }*/
+
+    public void cambiarContraseña(String contraseñaActual, String contraseñaNueva, Usuario usuario) throws NoSuchAlgorithmException, NoSuchProviderException, ClassNotFoundException{
+        usu.cambiarContraseña(contraseñaActual,contraseñaNueva,usuario);
     }
 
+    public boolean validarContraseña(String contraseñaIngresada, String nombreUsuario) {
+        boolean validacion=false;
+        try{
+        validacion = usu.validarContraseña(contraseñaIngresada, nombreUsuario);
+        }catch(Exception e){
+            mensaje = mensaje + "Error al validar contraseña"+e.getMessage();
+        }
+        return validacion;
+    }
 }

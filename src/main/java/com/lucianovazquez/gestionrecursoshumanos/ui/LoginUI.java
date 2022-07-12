@@ -27,13 +27,14 @@ public class LoginUI extends javax.swing.JPanel {
 
     javax.swing.JButton jButtonUsuario;
     javax.swing.JButton jButtonCerrarSesion;
-    boolean login;
+    
+    boolean validacion;
 
     public LoginUI(javax.swing.JPanel panelContenedor, javax.swing.JPanel panelContenedorSesion) {
         initComponents();
         this.panelContenedor = panelContenedor;
         this.panelContenedorSesion = panelContenedorSesion;
-       panelContenedorSesion.setVisible(true);
+        panelContenedorSesion.setVisible(true);
     }
 
     /**
@@ -248,12 +249,14 @@ public class LoginUI extends javax.swing.JPanel {
     }//GEN-LAST:event_JTextFieldUsuarioActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
-      login = usu.loginUsuario(JTextFieldUsuario.getText(), JPasswordFieldContraseña.getText());
-
-        if (login) {
+       
+        validacion = usu.validarContraseña(JPasswordFieldContraseña.getText(), JTextFieldUsuario.getText());
+        
+         System.out.println("BOLLEAN VALIDACIÓN del login"+validacion);
+         
+        if (validacion) {
             panelContenedorSesion.removeAll();
-            usuario = usu.sesionUsuario();
+            usuario = usu.loginUsuario(JTextFieldUsuario.getText());
 
             panelContenedor.setLayout(layaout);
             panelContenedorSesion.setLayout(layaout);

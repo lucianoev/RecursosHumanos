@@ -11,6 +11,7 @@ import com.lucianovazquez.gestionrecursoshumanos.bo.TardanzaBO;
 import com.lucianovazquez.gestionrecursoshumanos.entity.Usuario;
 import javax.swing.JPanel;
 import java.time.*;
+import java.util.Date;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -40,13 +41,17 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
         this.panelSesion = panelSesion;
         this.usuario = usuario;
         jButtonHistorial.setEnabled(false);
-        jLabelDia.setText(String.valueOf(dia));
+        Date fecha = Date.from(Instant.now());
+        jDateChooser1.setDate(fecha);
+        jLabelDia.setText(String.valueOf(jDateChooser1.getDate()));
         System.out.println("dia:" + dia);
 
         inasistenciaBO.listarInasistencia(jTable1, dia);
         tardanzaBO.listarTardanza(jTable2, dia);
         permisoBO.listarPermisosDia(jTable3, dia);
 
+        
+        
         jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 jButtonHistorial.setEnabled(true);

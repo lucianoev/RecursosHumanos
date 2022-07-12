@@ -9,6 +9,7 @@ import com.lucianovazquez.gestionrecursoshumanos.bo.UsuarioBO;
 import com.lucianovazquez.gestionrecursoshumanos.entity.Usuario;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -25,10 +26,11 @@ public class PanelSesionUI extends javax.swing.JPanel {
     Usuario usuario;
     UsuarioBO usuarioBO = new UsuarioBO();
     LoginUI login;
-    
+    JFrame contenedor;
     javax.swing.JPanel panelContenedor;
     javax.swing.JPanel panelContenedorSesion;
     
+     
     
     public PanelSesionUI(javax.swing.JPanel panelContenedor, javax.swing.JPanel panelContenedorSesion, Usuario sesionUsuario) {
         initComponents();
@@ -36,10 +38,11 @@ public class PanelSesionUI extends javax.swing.JPanel {
         this.panelContenedor = panelContenedor;
         this.panelContenedorSesion = panelContenedorSesion;
         
+         contenedor = (JFrame) this.getParent();
+        
         System.out.println("" + usuario.getNombre());
         jLabelUsuario.setVisible(true);
-        jLabelTipo.setText(usuario.getTipo());
-        jLabelUsuario.setText(usuario.getNombre());
+        jLabelUsuario.setText(usuario.getNombre()+" - ("+usuario.getTipo()+")");
         jLabelUsuario.setEnabled(true);
         jButtonCerrarSesion.setEnabled(true);
     }
@@ -60,9 +63,9 @@ public class PanelSesionUI extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel8 = new javax.swing.JLabel();
-        jLabelTipo = new javax.swing.JLabel();
         jButtonCerrarSesion = new javax.swing.JButton();
         jLabelUsuario = new javax.swing.JLabel();
+        jButtonCambiarContraseña = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(800, 80));
         setMinimumSize(new java.awt.Dimension(800, 80));
@@ -76,26 +79,22 @@ public class PanelSesionUI extends javax.swing.JPanel {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fray.png"))); // NOI18N
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(52, 59, 89));
-        jLabel6.setText("Sistema de Gestión de Recursos Humanos");
+        jLabel6.setFont(new java.awt.Font("Candara", 1, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(19, 146, 42));
+        jLabel6.setText("SISTEMA DE GESTIÓN DE RECURSOS  HUMANOS");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(52, 59, 89));
-        jLabel7.setText("Municipalidad de Fray Mamerto Esquiú");
+        jLabel7.setText("MUNICIPALIDAD DE FRAY MAMERTO ESQUIÚ");
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(52, 59, 89));
         jLabel8.setText("Usuario: ");
 
-        jLabelTipo.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
-        jLabelTipo.setForeground(new java.awt.Color(52, 59, 89));
-        jLabelTipo.setText("tipo");
-
         jButtonCerrarSesion.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
-        jButtonCerrarSesion.setText("Cerrar Sesion");
+        jButtonCerrarSesion.setText("Cerrar Sesión");
         jButtonCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCerrarSesionActionPerformed(evt);
@@ -106,30 +105,44 @@ public class PanelSesionUI extends javax.swing.JPanel {
         jLabelUsuario.setForeground(new java.awt.Color(52, 59, 89));
         jLabelUsuario.setText("Label usuario");
 
+        jButtonCambiarContraseña.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
+        jButtonCambiarContraseña.setText("Cambiar contraseña");
+        jButtonCambiarContraseña.setRequestFocusEnabled(false);
+        jButtonCambiarContraseña.setRolloverEnabled(false);
+        jButtonCambiarContraseña.setVerifyInputWhenFocusTarget(false);
+        jButtonCambiarContraseña.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCambiarContraseñaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelSesionLayout = new javax.swing.GroupLayout(jPanelSesion);
         jPanelSesion.setLayout(jPanelSesionLayout);
         jPanelSesionLayout.setHorizontalGroup(
             jPanelSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelSesionLayout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(21, 21, 21)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel6))
-                .addGap(47, 47, 47)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
                 .addGap(26, 26, 26)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelTipo)
-                    .addComponent(jLabel8))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(27, 27, 27)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                    .addGroup(jPanelSesionLayout.createSequentialGroup()
+                        .addComponent(jButtonCambiarContraseña)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonCerrarSesion)
+                        .addGap(0, 15, Short.MAX_VALUE))
+                    .addGroup(jPanelSesionLayout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabelUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
         jPanelSesionLayout.setVerticalGroup(
             jPanelSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,24 +151,23 @@ public class PanelSesionUI extends javax.swing.JPanel {
             .addGroup(jPanelSesionLayout.createSequentialGroup()
                 .addGroup(jPanelSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelSesionLayout.createSequentialGroup()
-                        .addGroup(jPanelSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelSesionLayout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addGroup(jPanelSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabelUsuario))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanelSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabelTipo)
-                                    .addComponent(jButtonCerrarSesion)))
-                            .addGroup(jPanelSesionLayout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel7)))
-                        .addGap(0, 8, Short.MAX_VALUE))
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanelSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabelUsuario))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanelSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonCerrarSesion)
+                            .addComponent(jButtonCambiarContraseña))
+                        .addGap(0, 2, Short.MAX_VALUE))
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(jPanelSesionLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -200,15 +212,24 @@ public class PanelSesionUI extends javax.swing.JPanel {
         }        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonCerrarSesionActionPerformed
 
+    private void jButtonCambiarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCambiarContraseñaActionPerformed
+       
+        
+        CambiarContraseña dialogCambiar = new CambiarContraseña(contenedor, true, usuario);
+        dialogCambiar.setVisible(true);
+        
+        
+    }//GEN-LAST:event_jButtonCambiarContraseñaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonCambiarContraseña;
     private javax.swing.JButton jButtonCerrarSesion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabelTipo;
     private javax.swing.JLabel jLabelUsuario;
     private javax.swing.JPanel jPanelSesion;
     private javax.swing.JSeparator jSeparator1;

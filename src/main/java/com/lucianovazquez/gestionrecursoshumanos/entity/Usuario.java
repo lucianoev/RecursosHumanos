@@ -14,14 +14,17 @@ public class Usuario  {
     private String nombre;
     private String nombreUsuario;
     private String contraseña;
+    private String salt;
     private String tipo;
+    
 
-    public Usuario(int id_usuario, String nombre, String nombreUsuario, String contraseña, String tipo) {
+    public Usuario(int id_usuario, String nombre, String nombreUsuario, String contraseña,String salt, String tipo) {
         
         this.id_usuario = id_usuario;
         this.nombre = nombre;
         this.nombreUsuario = nombreUsuario;
         this.contraseña = contraseña;
+        this.salt = salt;
         this.tipo = tipo;
     }
 
@@ -59,6 +62,14 @@ public class Usuario  {
 
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
     public String getTipo() {

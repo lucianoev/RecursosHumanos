@@ -24,13 +24,17 @@ public class MenuPrincipalUI extends javax.swing.JPanel {
     Usuario usuario = new Usuario();
     GestionEmpleadosUI panelGestionEmpleados;
     ControlAsistenciaUI panelControl;
-    
-    public MenuPrincipalUI(javax.swing.JPanel panelContenedor, Usuario sesionUsuario,javax.swing.JPanel panelSesion) {
+
+    public MenuPrincipalUI(javax.swing.JPanel panelContenedor, Usuario usuario, javax.swing.JPanel panelSesion) {
         initComponents();
-        
-        this.panelSesion=panelSesion;
-        this.usuario = sesionUsuario;
-        this.panel=panelContenedor;
+
+        this.panelSesion = panelSesion;
+        this.usuario = usuario;
+        this.panel = panelContenedor;
+
+        if (usuario.getTipo().equals("Médico") || usuario.getTipo().equals("Funcionario")) {
+            jButton4.setEnabled(false);
+        }
     }
 
     /**

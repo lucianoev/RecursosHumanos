@@ -58,10 +58,10 @@ public class ContenedorUI extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jButtonCerrarSesion = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(800, 500));
@@ -107,56 +107,56 @@ public class ContenedorUI extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/siglo21chico.png"))); // NOI18N
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fray.png"))); // NOI18N
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(52, 59, 89));
-        jLabel6.setText("Sistema de Gestión de Recursos Humanos");
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(52, 59, 89));
-        jLabel7.setText("Municipalidad de Fray Mamerto Esquiú");
-
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        jLabel7.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(52, 59, 89));
+        jLabel7.setText("MUNICIPALIDAD DE FRAY MAMERTO ESQUIÚ");
+
+        jLabel6.setFont(new java.awt.Font("Candara", 1, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(19, 146, 42));
+        jLabel6.setText("SISTEMA DE GESTIÓN DE RECURSOS  HUMANOS");
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fray.png"))); // NOI18N
 
         javax.swing.GroupLayout panelContenedorSesionLayout = new javax.swing.GroupLayout(panelContenedorSesion);
         panelContenedorSesion.setLayout(panelContenedorSesionLayout);
         panelContenedorSesionLayout.setHorizontalGroup(
             panelContenedorSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelContenedorSesionLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(20, 20, 20)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelContenedorSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel6))
-                .addGap(47, 47, 47)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
+                .addGap(28, 28, 28)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(jLabel8)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(27, 27, 27)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48))
+                .addGap(57, 57, 57)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18))
         );
         panelContenedorSesionLayout.setVerticalGroup(
             panelContenedorSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
             .addGroup(panelContenedorSesionLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
                 .addGroup(panelContenedorSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelContenedorSesionLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonCerrarSesion))
+                        .addComponent(jButtonCerrarSesion)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(panelContenedorSesionLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel6)
+                        .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jLabel6)
+                        .addContainerGap(7, javax.swing.GroupLayout.PREFERRED_SIZE))))
             .addGroup(panelContenedorSesionLayout.createSequentialGroup()
                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())

@@ -18,10 +18,11 @@ public class GestionEmpleadosUI extends javax.swing.JPanel {
      * Creates new form GestionEmpleadosUI
      */
     
-    javax.swing.JPanel panel;
+    javax.swing.JPanel panelContenedor;
     javax.swing.JPanel panelSesion;
     Usuario usuario = new Usuario();
     MenuPrincipalUI panelMenu;
+    NuevoEmpleadoUI panelNuevoEmp;
     EmpleadoBO empBO = new EmpleadoBO();
     
     
@@ -29,8 +30,11 @@ public class GestionEmpleadosUI extends javax.swing.JPanel {
         initComponents();
         
         this.usuario = sesionUsuario;
-        this.panel = panelContenedor;
+        this.panelContenedor = panelContenedor;
         this.panelSesion = panelSesion;
+    }
+
+    GestionEmpleadosUI() {
     }
     
 
@@ -203,7 +207,10 @@ public class GestionEmpleadosUI extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+       panelNuevoEmp = new NuevoEmpleadoUI (panelContenedor,usuario,panelSesion);
+       panelContenedor.add(panelNuevoEmp);
+       panelNuevoEmp.setVisible(true);
+       this.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -211,14 +218,14 @@ public class GestionEmpleadosUI extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       panelMenu = new MenuPrincipalUI(panel,usuario, panelSesion);
-       panel.add(panelMenu);
+      panelMenu = new MenuPrincipalUI(panelContenedor,usuario, panelSesion);
+       panelContenedor.add(panelMenu);
        panelMenu.setVisible(true);
        this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      String tipo = String.valueOf(jComboBox1.getSelectedItem());
+     String tipo = String.valueOf(jComboBox1.getSelectedItem());
       if(tipo.equals("DNI")){
           empBO.listarEmpleadosDni(jTable1, Integer.valueOf(jTextField1.getText()));
       }
