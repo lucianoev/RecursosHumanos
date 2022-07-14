@@ -26,10 +26,10 @@ public class GestionEmpleadosUI extends javax.swing.JPanel {
     EmpleadoBO empBO = new EmpleadoBO();
     
     
-    public GestionEmpleadosUI(javax.swing.JPanel panelContenedor, Usuario sesionUsuario, javax.swing.JPanel panelSesion) {
+    public GestionEmpleadosUI(javax.swing.JPanel panelContenedor, Usuario usuario, javax.swing.JPanel panelSesion) {
         initComponents();
         
-        this.usuario = sesionUsuario;
+        this.usuario = usuario;
         this.panelContenedor = panelContenedor;
         this.panelSesion = panelSesion;
     }

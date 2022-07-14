@@ -11,6 +11,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -147,7 +148,7 @@ public class CambiarContraseña extends javax.swing.JDialog {
                 Logger.getLogger(CambiarContraseña.class.getName()).log(Level.SEVERE, null, ex);
             }
             JOptionPane.showMessageDialog(null, "La contraseña fue modificada correctamente",
-                    "Modificación de contraseña exitosa", JOptionPane.OK_OPTION);
+                    "Modificación de contraseña exitosa", JOptionPane.PLAIN_MESSAGE);
             this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null, "La contraseña ingresada no coincide con su contraseña actual",

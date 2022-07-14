@@ -89,6 +89,7 @@ public class EmpleadoDAO {
                 Logger.getLogger(EmpleadoDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        System.out.println("NOMBRE EMPLEADO:"+empleado.getNombre());
         return empleado;
     }
 

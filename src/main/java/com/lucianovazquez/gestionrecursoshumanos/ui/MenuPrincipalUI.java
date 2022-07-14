@@ -18,19 +18,20 @@ public class MenuPrincipalUI extends javax.swing.JPanel {
     /**
      * Creates new form MenuPrincipalUI
      */
-    javax.swing.JPanel panel;
+    javax.swing.JPanel panelContenedor;
     javax.swing.JPanel panelSesion;
     GridBagLayout layaout = new GridBagLayout();
     Usuario usuario = new Usuario();
     GestionEmpleadosUI panelGestionEmpleados;
     ControlAsistenciaUI panelControl;
+    SolicitudLicenciaUI panelSolicLicencia;
 
     public MenuPrincipalUI(javax.swing.JPanel panelContenedor, Usuario usuario, javax.swing.JPanel panelSesion) {
         initComponents();
 
         this.panelSesion = panelSesion;
         this.usuario = usuario;
-        this.panel = panelContenedor;
+        this.panelContenedor = panelContenedor;
 
         if (usuario.getTipo().equals("Médico") || usuario.getTipo().equals("Funcionario")) {
             jButton4.setEnabled(false);
@@ -152,21 +153,34 @@ public class MenuPrincipalUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        panelControl = new ControlAsistenciaUI(panel, usuario, panelSesion);
-        panel.add(panelControl);
+        panelControl = new ControlAsistenciaUI(panelContenedor, usuario, panelSesion);
+        panelContenedor.add(panelControl);
         panelControl.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        panelGestionEmpleados = new GestionEmpleadosUI(panel, usuario, panelSesion);
-        panel.add(panelGestionEmpleados);
+        panelGestionEmpleados = new GestionEmpleadosUI(panelContenedor, usuario, panelSesion);
+        panelContenedor.add(panelGestionEmpleados);
         panelGestionEmpleados.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        
+        System.out.println("INGRESO ANTES DEL IF LICENCIAS"+usuario.getNombre()+ usuario.getTipo());
+        if(usuario.getTipo().equals("Personal RRHH") || usuario.getTipo().equals("admin") ){
+            System.out.println("INGRESO LICENCIAS"+usuario.getNombre());
+            
+            panelSolicLicencia = new SolicitudLicenciaUI(panelContenedor, usuario, panelSesion);
+            panelContenedor.add(panelSolicLicencia);
+            panelSolicLicencia.setVisible(true);
+            this.setVisible(false);
+       }
+     /*  if(usuario.getTipo().equals("Médico")){
+            panelApLicencia = new AprobacionLicencia();
+       }*/
+            
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed

@@ -107,8 +107,7 @@ public class PanelSesionUI extends javax.swing.JPanel {
 
         jButtonCambiarContraseña.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jButtonCambiarContraseña.setText("Cambiar contraseña");
-        jButtonCambiarContraseña.setRequestFocusEnabled(false);
-        jButtonCambiarContraseña.setRolloverEnabled(false);
+        jButtonCambiarContraseña.setFocusCycleRoot(true);
         jButtonCambiarContraseña.setVerifyInputWhenFocusTarget(false);
         jButtonCambiarContraseña.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -15,7 +15,7 @@ import java.util.TimerTask;
  *
  * @author Lenovo 3
  */
-public class InasistenciaBO extends TimerTask {
+public class InasistenciaBO {
 
     private String mensaje = "";
     private InasistenciaDAO ina = new InasistenciaDAO();
@@ -34,7 +34,7 @@ public class InasistenciaBO extends TimerTask {
         ina.listarInasistencia(tabla, dia);
     }
 
-    @Override
+    
     public void run() {
         try {
 
