@@ -8,7 +8,7 @@ package com.lucianovazquez.gestionrecursoshumanos.ui;
 import com.lucianovazquez.gestionrecursoshumanos.entity.Usuario;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import javax.swing.JOptionPane;
+
 
 /**
  *

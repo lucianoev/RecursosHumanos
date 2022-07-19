@@ -13,12 +13,27 @@ import com.lucianovazquez.gestionrecursoshumanos.entity.Reparticion;
  * @author Lenovo 3
  */
 public class ReparticionBO {
+
     private ReparticionDAO rep = new ReparticionDAO();
     private Reparticion reparticion = new Reparticion();
+    int idFun;
 
     public Reparticion buscarReparticion(int id) {
-        reparticion = rep.buscarReparticion(id);
+        try {
+            reparticion = rep.buscarReparticion(id);
+        } catch (Exception e) {
+            System.out.println("Error al Recuperar Nombre de Repartición:" + e.getMessage());
+        }
         return reparticion;
     }
-    
+
+    public int recuperarIdFuncionarioRep(int idRep) {
+        try {
+            idFun = rep.recuperarIdFuncionarioRep(idRep);
+        } catch (Exception e) {
+            System.out.println("Error al recuperar ID Funcionario con ID Repartición: " + e.getMessage());
+        }
+        return idFun;
+    }
+
 }

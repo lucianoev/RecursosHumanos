@@ -16,8 +16,6 @@ import com.lucianovazquez.gestionrecursoshumanos.entity.Usuario;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.Month;
 import java.time.YearMonth;
 import java.time.ZoneId;
 import javax.swing.JOptionPane;

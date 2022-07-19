@@ -30,6 +30,9 @@ public class Permiso {
         this.observacionPermiso = observacionPermiso;
     }
 
+    public Permiso() {
+    }
+
     public int getId_permiso() {
         return id_permiso;
     }

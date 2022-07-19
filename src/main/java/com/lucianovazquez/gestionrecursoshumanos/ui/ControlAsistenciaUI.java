@@ -29,6 +29,7 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
     MenuPrincipalUI panelMenu;
     javax.swing.JPanel panelContenedor;
     HistorialUI panelHistorial;
+    PermisoUI panelPermiso;
     Usuario usuario = new Usuario();
     InasistenciaBO inasistenciaBO = new InasistenciaBO();
     TardanzaBO tardanzaBO = new TardanzaBO();
@@ -318,7 +319,10 @@ public class ControlAsistenciaUI extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+    panelPermiso = new PermisoUI (panelContenedor, usuario, panelSesion);
+    panelContenedor.add(panelPermiso);
+    panelPermiso.setVisible(true);
+    this.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButtonBuscarDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarDiaActionPerformed

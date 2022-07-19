@@ -15,9 +15,21 @@ import com.lucianovazquez.gestionrecursoshumanos.entity.Funcionario;
 public class FuncionarioBO {
      private FuncionarioDAO fun = new FuncionarioDAO();
     private Funcionario reparticion = new Funcionario();
+    int idReparticion;
 
     public Funcionario buscarFuncionario(int id) {
         reparticion = fun.buscarFuncionario(id);
         return reparticion;
+    }
+
+    public int recuperarIdReparticion(int idFun) {
+        
+        try {
+            idReparticion = fun.recuperarIdReparticion(idFun);
+        } catch (Exception e) {
+            System.out.println("Error al recuperar ID Repartición de Funcionario: " + e.getMessage());
+        }
+        return idReparticion;
+    
     }
 }

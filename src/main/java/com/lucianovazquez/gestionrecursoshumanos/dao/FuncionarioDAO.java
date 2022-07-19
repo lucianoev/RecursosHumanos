@@ -44,5 +44,29 @@ public class FuncionarioDAO {
         }
     return funcionario;
     }
+
+    public int recuperarIdReparticion(int idFun) {
+         int idReparticion = 0;
+        String sql = "SELECT id_reparticion FROM funcionario WHERE id_funcionario = ?";
+        try{
+            PreparedStatement pst = ConexionDAO.getConnection().prepareStatement(sql);
+            pst.setInt(1, idFun);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                idReparticion = rs.getInt(1);
+                System.out.println("ID REPARTICION:"+idReparticion);
+                
+        }
+    }catch (Exception e) {
+            System.out.println("ERROR AL BUSCAR ID_REPARTICION DEL FUNCIONARIO: " + e.getMessage());
+        } finally {
+            try {
+                ConexionDAO.closeConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return idReparticion;
+    }
     
 }

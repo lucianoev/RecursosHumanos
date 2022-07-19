@@ -6,49 +6,49 @@
 package com.lucianovazquez.gestionrecursoshumanos.ui;
 
 import com.lucianovazquez.gestionrecursoshumanos.bo.EmpleadoBO;
-import com.lucianovazquez.gestionrecursoshumanos.bo.LicenciaBO;
-import com.lucianovazquez.gestionrecursoshumanos.bo.MedicoBO;
+import com.lucianovazquez.gestionrecursoshumanos.bo.PermisoBO;
 import com.lucianovazquez.gestionrecursoshumanos.bo.ReparticionBO;
 import com.lucianovazquez.gestionrecursoshumanos.entity.Empleado;
-import com.lucianovazquez.gestionrecursoshumanos.entity.Licencia;
-import com.lucianovazquez.gestionrecursoshumanos.entity.Medico;
+import com.lucianovazquez.gestionrecursoshumanos.entity.Permiso;
 import com.lucianovazquez.gestionrecursoshumanos.entity.Reparticion;
 import com.lucianovazquez.gestionrecursoshumanos.entity.Usuario;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.time.LocalDate;
-import java.time.Period;
+import java.time.LocalTime;
 import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JOptionPane;
-
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
 
 /**
  *
  * @author Lenovo 3
  */
-public class SolicitudLicenciaUI extends javax.swing.JPanel {
+public class PermisoUI extends javax.swing.JPanel {
 
     javax.swing.JPanel panelContenedor;
     javax.swing.JPanel panelSesion;
     Usuario usuario = new Usuario();
     MenuPrincipalUI panelMenu;
+    ControlAsistenciaUI panelControl;
     NuevoEmpleadoUI panelNuevoEmp;
     EmpleadoBO empBO = new EmpleadoBO();
     Empleado empleado = new Empleado();
     ReparticionBO repBO = new ReparticionBO();
     Reparticion reparticion = new Reparticion();
-    Licencia licencia = new Licencia();
-    LicenciaBO licBO = new LicenciaBO();
-    MedicoBO medBO = new MedicoBO();
-    Medico medico = new Medico();
+    PermisoBO perBO = new PermisoBO();
+    Permiso permiso = new Permiso();
 
-    public SolicitudLicenciaUI(javax.swing.JPanel panelContenedor, Usuario usuario, javax.swing.JPanel panelSesion) {
+    public PermisoUI(JPanel panelContenedor, Usuario usuario, JPanel panelSesion) {
         initComponents();
-
         this.panelContenedor = panelContenedor;
-        this.usuario = usuario;
         this.panelSesion = panelSesion;
+        this.usuario = usuario;
 
+        jSpinnerInicio.setEnabled(false);
+        jSpinnerFin.setEnabled(false);
     }
 
     /**
@@ -60,19 +60,17 @@ public class SolicitudLicenciaUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jButtonConfirmar = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel10 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabelNombreEmpleado = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
-        jComboBox2 = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -83,16 +81,34 @@ public class SolicitudLicenciaUI extends javax.swing.JPanel {
         jPanel5 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
         jButtonBuscar = new javax.swing.JButton();
         jLabelReparticion = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabelDiasDisponibles = new javax.swing.JLabel();
+        jLabelHorasDisponibles = new javax.swing.JLabel();
+        Date date2 = new Date();
+        SpinnerDateModel sm2 =
+        new SpinnerDateModel(date2, null, null, Calendar.HOUR_OF_DAY);
+        jSpinnerFin =  new javax.swing.JSpinner(sm2);
+
+        JSpinner.DateEditor de2 = new JSpinner.DateEditor(jSpinnerFin, "HH:mm");
+        jSpinnerFin.setEditor(de2);
+        ;
+        Date date = new Date();
+        SpinnerDateModel sm =
+        new SpinnerDateModel(date, null, null, Calendar.HOUR_OF_DAY);
+        jSpinnerInicio =  new javax.swing.JSpinner(sm);
+
+        JSpinner.DateEditor de = new JSpinner.DateEditor(jSpinnerInicio, "HH:mm");
+        jSpinnerInicio.setEditor(de);
+
+        ;
 
         setMaximumSize(new java.awt.Dimension(800, 400));
         setMinimumSize(new java.awt.Dimension(800, 400));
-        setPreferredSize(new java.awt.Dimension(800, 400));
+
+        jPanel1.setMaximumSize(new java.awt.Dimension(800, 400));
+        jPanel1.setMinimumSize(new java.awt.Dimension(800, 400));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel12.setText("Empleado:");
@@ -100,7 +116,7 @@ public class SolicitudLicenciaUI extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Buscar Empleado:");
 
-        jButtonConfirmar.setText("Confirmar Solicitud");
+        jButtonConfirmar.setText("Confirmar Permiso");
         jButtonConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonConfirmarActionPerformed(evt);
@@ -115,29 +131,18 @@ public class SolicitudLicenciaUI extends javax.swing.JPanel {
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel10.setText("Tipo de Licencia:");
-
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 9)); // NOI18N
         jLabel18.setText("Hasta:");
 
         jLabelNombreEmpleado.setText("-");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel3.setText("Licencias");
+        jLabel3.setText("Permiso de Salida");
 
-        jButton2.setText("Volver a Licencias");
+        jButton2.setText("Control de Asistencia");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
-            }
-        });
-
-        jComboBox2.setBackground(new java.awt.Color(204, 204, 204));
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Médica", "Ordinaria", "Especial" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
             }
         });
 
@@ -162,18 +167,18 @@ public class SolicitudLicenciaUI extends javax.swing.JPanel {
         );
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel4.setText("Nueva Solicitud de Licencia");
+        jLabel4.setText("Nueva Solicitud de Permiso de Salida");
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 9)); // NOI18N
         jLabel17.setText("Desde:");
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Historial Licencia", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Historial de Permisos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, "", null},
-                {null, null, null, "", null},
-                {null, null, null, "", null},
+                {null, "", null, null, null},
+                {null, "", null, null, null},
+                {null, "", null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -181,9 +186,17 @@ public class SolicitudLicenciaUI extends javax.swing.JPanel {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Licencia N° ", "Desde", "Hasta", "Tipo", "Observaciones"
+                "N° ", "Día", "Desde", "Hasta", "Estado"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -210,49 +223,46 @@ public class SolicitudLicenciaUI extends javax.swing.JPanel {
         jLabel6.setText("Repartición:");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel7.setText("Licencia ordinaria:");
+        jLabel7.setText("Horas disponibles:");
 
-        jLabelDiasDisponibles.setText("-");
+        jLabelHorasDisponibles.setText("-");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(36, 36, 36)
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(jSpinnerInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
                         .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jSpinnerFin, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(90, 90, 90))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(209, 209, 209)
                                 .addComponent(jButton2)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(9, 9, 9)
                                 .addComponent(jButtonConfirmar)
                                 .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -261,188 +271,175 @@ public class SolicitudLicenciaUI extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(jButtonBuscar)))
                         .addGap(39, 39, 39)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel12)
                                     .addComponent(jLabel6))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabelNombreEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabelReparticion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabelDiasDisponibles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(jLabelHorasDisponibles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(62, 62, 62))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 745, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 745, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 10, Short.MAX_VALUE)))
                 .addGap(20, 20, 20))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(340, 340, 340)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(283, 283, 283)
                 .addComponent(jLabel3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonBuscar)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
                             .addComponent(jLabelNombreEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(jLabelReparticion))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(jLabelDiasDisponibles))
+                            .addComponent(jLabelHorasDisponibles))
                         .addGap(14, 14, 14)))
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 6, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel11)))
-                            .addComponent(jDateChooser2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 6, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSpinnerFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel11)
+                        .addComponent(jSpinnerInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2)
                     .addComponent(jButtonConfirmar))
                 .addGap(37, 37, 37))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 800, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
 
-        if (jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Debe completar todos los datos antes de confirmar la solicitud de licencia",
-                    "Error al confirmar la solicitud", JOptionPane.ERROR_MESSAGE);
-        } else {
+        Date inicio = (Date) jSpinnerInicio.getValue();
+        Date fin = (Date) jSpinnerFin.getValue();
+        LocalTime tiempoInicio = inicio.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
+        LocalTime tiempoFin = fin.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
+        boolean comprobacionTurno = false;
 
-            LocalDate jdateInicio = jDateChooser1.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            LocalDate jdateFin = jDateChooser2.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        System.out.println("Permiso solicitado desde: " + tiempoInicio + "hasta: " + tiempoFin + "hora actual: " + LocalTime.now());
 
-            if (licBO.controlLicenciaAbierta(jdateInicio, jdateFin, empleado.getId_empleado())) {
-                JOptionPane.showMessageDialog(null, "Existen solicitudes de licencia vigentes en el período de tiempo especificado",
-                        "Error al confirmar la solicitud", JOptionPane.ERROR_MESSAGE);
+        if (empleado.getTurno().equals("Mañana")) {
+            if (tiempoInicio.isBefore(LocalTime.parse("08:00")) || tiempoFin.isAfter(LocalTime.parse("13:00"))) {
+                JOptionPane.showMessageDialog(null, "El horario ingresado se encuentra fuera del turno laboral del empleado " + "( Turno Mañana: 8 Hs a 13 Hs )",
+                        "Error en el horario solicitado", JOptionPane.ERROR_MESSAGE);
+
             } else {
-
-                String tipo = String.valueOf(jComboBox2.getSelectedItem());
-
-                if ((jdateInicio.isAfter(LocalDate.now()) && jdateFin.isAfter(LocalDate.now())) || jdateInicio.isEqual(LocalDate.now())) {
-
-                    if (!jdateInicio.isAfter(jdateFin)) {
-
-                        if (tipo.equals("Médica")) {
-                            medico = medBO.obtenerMedicoTurno(empleado.getTurno());
-                            licencia.setId_empleado(empleado.getId_empleado());
-                            licencia.setId_medico(medico.getId_medico()); //obtener medico segun turno del empleado
-                            licencia.setTipoLicencia("Médica");
-                            licencia.setDiaInicio(jdateInicio.toString());
-                            licencia.setDiaFin(jdateFin.toString());
-                            licencia.setEstadoLicencia("Pendiente");
-                            licencia.setObservacionLicencia("Pendiente en Reconocimiento Médico. Profesional: Dr" + medico.getNombre() + " del turno: " + medico.getTurnoMedico() + "/n" + jTextArea1.getText());
-                            licBO.insert(licencia);
-                            JOptionPane.showMessageDialog(null, "La solicitud de licencia se ha cargado correctamente");
-                            panelMenu = new MenuPrincipalUI(panelContenedor, usuario, panelSesion);
-                            panelContenedor.add(panelMenu);
-                            panelMenu.setVisible(true);
-                            this.setVisible(false);
-                        }
-
-                        if (tipo.equals("Ordinaria")) {
-                            int diasSolicitados = Period.between(jdateInicio, jdateFin).getDays();
-                            System.out.println("dias solicitados: " + diasSolicitados);
-                            if (empleado.getDisponibleLicencia() >= diasSolicitados) {
-
-                                licencia.setId_empleado(empleado.getId_empleado());
-                                licencia.setTipoLicencia("Ordinaria");
-                                licencia.setDiaInicio(jdateInicio.toString());
-                                licencia.setDiaFin(jdateFin.toString());
-                                licencia.setEstadoLicencia("Aprobada");
-                                int diasRestantes = empleado.getDisponibleLicencia() - diasSolicitados;
-                                licencia.setObservacionLicencia(jTextArea1.getText() + "/n" + "Días restantes de Licencia Ordinaria: " + diasRestantes);
-                                licBO.insert(licencia);
-                                JOptionPane.showMessageDialog(null, "La solicitud de licencia se ha cargado correctamente");
-                                panelMenu = new MenuPrincipalUI(panelContenedor, usuario, panelSesion);
-                                panelContenedor.add(panelMenu);
-                                panelMenu.setVisible(true);
-                                this.setVisible(false);
-                            } else {
-                                JOptionPane.showMessageDialog(null, "La cantidad de días disponibles de licencia del empleado son insuficientes para la licencia solicitada",
-                                        "No se puede realizar la solicitud de Licencia Ordinaria", JOptionPane.ERROR_MESSAGE);
-                            }
-                        }
-
-                        if (tipo.equals("Especial")) {
-                            licencia.setId_empleado(empleado.getId_empleado());
-                            licencia.setTipoLicencia("Especial");
-                            licencia.setDiaInicio(jdateInicio.toString());
-                            licencia.setDiaFin(jdateFin.toString());
-                            licencia.setEstadoLicencia("Aprobada");
-                            licencia.setObservacionLicencia(jTextArea1.getText());
-                            licBO.insert(licencia);
-                            JOptionPane.showMessageDialog(null, "La solicitud de licencia se ha cargado correctamente");
-                            panelMenu = new MenuPrincipalUI(panelContenedor, usuario, panelSesion);
-                            panelContenedor.add(panelMenu);
-                            panelMenu.setVisible(true);
-                            this.setVisible(false);
-                        }
-
-                    } else {
-                        JOptionPane.showMessageDialog(null, "La fecha final ingresada debe ser posterior a la fecha inicial",
-                                "Por favor ingrese una fecha válida", JOptionPane.ERROR_MESSAGE);
-
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "La fecha ingresada no puede ser anterior a la fecha actual",
-                            "Por favor ingrese una fecha válida", JOptionPane.ERROR_MESSAGE);
-                }
-
+                comprobacionTurno = true;
+            }
+        } else {
+            if (tiempoInicio.isBefore(LocalTime.parse("14:00")) || tiempoFin.isAfter(LocalTime.parse("19:30"))) {
+                JOptionPane.showMessageDialog(null, "El horario ingresado se encuentra fuera del turno laboral del empleado " + "( Turno Tarde: 14 Hs a 19 Hs )",
+                        "Error en el horario solicitado", JOptionPane.ERROR_MESSAGE);
+            } else {
+                comprobacionTurno = true;
             }
         }
+        if (comprobacionTurno) {
+            if (tiempoInicio.isBefore(tiempoFin)) {
+                if (tiempoInicio.isAfter(LocalTime.now())) {
+                    if (!perBO.controlPermisoVigente(tiempoInicio, tiempoFin, empleado.getId_empleado())) {
+
+                        permiso.setId_empleado(empleado.getId_empleado());
+                        permiso.setId_funcionario(empleado.getId_funcionario());
+                        permiso.setDiaPermiso(LocalDate.now().toString());
+                        permiso.setHoraInicio(tiempoInicio.toString());
+                        permiso.setHoraFin(tiempoFin.toString());
+                        permiso.setEstadoPermiso("Aprobado");
+                        permiso.setObservacionPermiso(jTextArea1.getText());
+
+                        perBO.insert(permiso);
+
+                        System.out.println("permiso registrado correctamente");
+                        //Codigo de insert permiso
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Existe un permiso vigente en el horario solicitado para el empleado:",
+                                "Error al generar Permiso de Salida", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "La hora de inicio del permiso no puede ser anterior a la hora actual",
+                            "Error al confirmar el permiso", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "La hora de inicio del permiso debe ser anterior a la hora final",
+                        "Error al confirmar el permiso", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        panelMenu = new MenuPrincipalUI(panelContenedor, usuario, panelSesion);
-        panelContenedor.add(panelMenu);
-        panelMenu.setVisible(true);
+        panelControl = new ControlAsistenciaUI(panelContenedor, usuario, panelSesion);
+        panelContenedor.add(panelControl);
+        panelControl.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -464,12 +461,15 @@ public class SolicitudLicenciaUI extends javax.swing.JPanel {
                             "Búsqueda sin resultados", JOptionPane.ERROR_MESSAGE);
                     jLabelNombreEmpleado.setText("-");
                     jLabelReparticion.setText("-");
-                    jLabelDiasDisponibles.setText("-");
+                    jLabelHorasDisponibles.setText("-");
                 } else {
                     jLabelNombreEmpleado.setText(empleado.getApellido() + ", " + empleado.getNombre());
                     reparticion = repBO.buscarReparticion(empleado.getId_empleado());
                     jLabelReparticion.setText(reparticion.getNombreReparticion());
-                    jLabelDiasDisponibles.setText((empleado.getDisponibleLicencia()) + " días disponibles");
+                    jLabelHorasDisponibles.setText((empleado.getDisponiblePermiso()) + "");
+                    jSpinnerInicio.setEnabled(true);
+                    jSpinnerFin.setEnabled(true);
+
                 }
             }
             if (tipo.equals("N° de Legajo")) {
@@ -481,56 +481,22 @@ public class SolicitudLicenciaUI extends javax.swing.JPanel {
                             "Búsqueda sin resultados", JOptionPane.ERROR_MESSAGE);
                     jLabelNombreEmpleado.setText("-");
                     jLabelReparticion.setText("-");
-                    jLabelDiasDisponibles.setText("-");
+                    jLabelHorasDisponibles.setText("-");
                 } else {
                     jLabelNombreEmpleado.setText(empleado.getApellido() + ", " + empleado.getNombre());
                     reparticion = repBO.buscarReparticion(empleado.getId_empleado());
                     jLabelReparticion.setText(reparticion.getNombreReparticion());
-                    jLabelDiasDisponibles.setText((empleado.getDisponibleLicencia()) + " días disponibles");
+                    jLabelHorasDisponibles.setText((empleado.getDisponibleLicencia()) + " días disponibles");
+                    jSpinnerInicio.setEnabled(true);
+                    jSpinnerFin.setEnabled(true);
                 }
             }
 
         }
-
-        String tipo2 = String.valueOf(jComboBox2.getSelectedItem());
-        if (tipo2.equals("Médica")) {
-            licBO.listarLicencia(jTable1, empleado.getId_empleado(), "Médica");
-        }
-        if (tipo2.equals("Ordinaria")) {
-            licBO.listarLicencia(jTable1, empleado.getId_empleado(), "Ordinaria");
-
-        }
-        if (tipo2.equals("Especial")) {
-            licBO.listarLicencia(jTable1, empleado.getId_empleado(), "Especial");
-
-        }
+        perBO.listarPermisoEmpleado(jTable1, empleado.getId_empleado());
 
 
     }//GEN-LAST:event_jButtonBuscarActionPerformed
-
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-        jComboBox2.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                String tipo = String.valueOf(jComboBox2.getSelectedItem());
-                if (tipo.equals("Médica")) {
-                    licBO.listarLicencia(jTable1, empleado.getId_empleado(), "Médica");
-                }
-                if (tipo.equals("Ordinaria")) {
-                    licBO.listarLicencia(jTable1, empleado.getId_empleado(), "Ordinaria");
-
-                }
-                if (tipo.equals("Especial")) {
-                    licBO.listarLicencia(jTable1, empleado.getId_empleado(), "Especial");
-
-                }
-            }
-        });
-    }//GEN-LAST:event_jComboBox2ActionPerformed
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -538,10 +504,6 @@ public class SolicitudLicenciaUI extends javax.swing.JPanel {
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonConfirmar;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel17;
@@ -551,15 +513,18 @@ public class SolicitudLicenciaUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabelDiasDisponibles;
+    private javax.swing.JLabel jLabelHorasDisponibles;
     private javax.swing.JLabel jLabelNombreEmpleado;
     private javax.swing.JLabel jLabelReparticion;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSpinner jSpinnerFin;
+    public javax.swing.JSpinner jSpinnerInicio;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;

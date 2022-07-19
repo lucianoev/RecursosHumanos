@@ -59,7 +59,6 @@ public class CambiarContraseña extends javax.swing.JDialog {
         setTitle("  Modificar Contraseña");
         setMaximumSize(new java.awt.Dimension(400, 200));
         setMinimumSize(new java.awt.Dimension(400, 200));
-        setPreferredSize(new java.awt.Dimension(400, 200));
         setResizable(false);
 
         jLabel1.setText("Ingrese su contraseña actual:");

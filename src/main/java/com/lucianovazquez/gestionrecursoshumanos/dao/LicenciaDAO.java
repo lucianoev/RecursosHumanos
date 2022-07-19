@@ -55,7 +55,7 @@ public class LicenciaDAO {
             try {
                 ConexionDAO.closeConnection();
             } catch (SQLException ex) {
-                Logger.getLogger(InasistenciaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(LicenciaDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -63,7 +63,7 @@ public class LicenciaDAO {
     public void insert(Licencia licencia) throws ClassNotFoundException {
         
        String sql = "INSERT INTO licencia (id_licencia,id_empleado,id_medico,tipoLicencia,diaInicio,diaFin,estadoLicencia,observacionLicencia)"
-            + "VALUES (id_empleado=LAST_INSERT_ID(id_empleado+1),?,?,?,?,?,?,?)";
+            + "VALUES (id_licencia=LAST_INSERT_ID(id_licencia+1),?,?,?,?,?,?,?)";
         try {
             PreparedStatement preparedStatement = ConexionDAO.getConnection().prepareStatement(sql);
             

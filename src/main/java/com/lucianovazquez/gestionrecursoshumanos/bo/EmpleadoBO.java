@@ -5,7 +5,6 @@
  */
 package com.lucianovazquez.gestionrecursoshumanos.bo;
 
-import com.lucianovazquez.gestionrecursoshumanos.dao.ConexionDAO;
 import com.lucianovazquez.gestionrecursoshumanos.dao.EmpleadoDAO;
 import com.lucianovazquez.gestionrecursoshumanos.entity.Empleado;
 import javax.swing.JTable;
@@ -19,6 +18,7 @@ public class EmpleadoBO {
     private String mensaje = "";
     private EmpleadoDAO emp = new EmpleadoDAO();
     private Empleado empleado = new Empleado();
+    private int nuevoId;
 
     public String insert(Empleado empleado) {
         try {
@@ -69,6 +69,23 @@ public class EmpleadoBO {
             emp.listarEmpleadosApellido(tabla, apellido);
         } catch (Exception e) {
             mensaje = mensaje + "" + e.getMessage();
+        }
+    }
+
+    public int obtenerProximoIdEmpleado() {
+        try {
+            nuevoId = emp.obtenerProximoIdEmpleado();
+        } catch (Exception e) {
+            mensaje = mensaje + "" + e.getMessage();
+        }
+        return nuevoId;
+    }
+
+    public void update(Empleado empleado) {
+        try {
+            emp.update(empleado);
+        } catch (Exception e) {
+            System.out.println("ERROR AL ACTUALIZAR EMPLEADO:" + e.getMessage());
         }
     }
 

@@ -22,47 +22,61 @@ import javax.swing.JTextField;
  *
  * @author Lenovo 3
  */
-public class NuevoEmpleadoUI extends javax.swing.JPanel {
+public class ModificarEmpleadoUI extends javax.swing.JPanel {
 
+    /**
+     * Creates new form ModificarEmpleado
+     */
     javax.swing.JPanel panelContenedor;
     javax.swing.JPanel panelSesion;
     GestionEmpleadosUI panelGestion;
     Usuario usuario = new Usuario();
-    Empleado empleado = new Empleado();
+    MenuPrincipalUI panelMenu;
+    NuevoEmpleadoUI panelNuevoEmp;
     EmpleadoBO empBO = new EmpleadoBO();
+    Empleado empleado = new Empleado();
     ReparticionBO repBO = new ReparticionBO();
     FuncionarioBO funBO = new FuncionarioBO();
     Funcionario funcionario = new Funcionario();
 
-    int nuevoid = empBO.obtenerProximoIdEmpleado();
-
-    public NuevoEmpleadoUI(JPanel panelContenedor, Usuario usuario, JPanel panelSesion) {
+    public ModificarEmpleadoUI(JPanel panelContenedor, Usuario usuario, JPanel panelSesion, Empleado empleado) {
         initComponents();
         this.panelContenedor = panelContenedor;
-        this.panelSesion = panelSesion;
         this.usuario = usuario;
+        this.panelSesion = panelSesion;
+        this.empleado = empleado;
 
-        jLabelLegajo.setText("Legajo N° " + nuevoid);
+        
         buttonGroup1.add(jRadioButtonMañana);
         buttonGroup1.add(jRadioButtonTarde);
-        jRadioButtonMañana.setSelected(true);
-
-        jTextFieldFuncionario.setEnabled(false);
+        
+        jLabelLegajo.setText(" Legajo N° " + empleado.getId_empleado());
+        jTextFieldDocumento.setText(empleado.getDni());
+        jTextFieldNombre.setText(empleado.getNombre());
+        jTextFieldApellido.setText(empleado.getApellido());
+        jTextFieldTelefono.setText(empleado.getTelefono());
+        jTextFieldEmail.setText(empleado.getEmail());
+        jTextFieldDomicilio.setText(empleado.getDomicilio());
+        jComboBoxReparticion.setSelectedIndex(empleado.getId_reparticion());
+        jTextFieldFuncionario.setText(funBO.buscarFuncionario(repBO.recuperarIdFuncionarioRep(jComboBoxReparticion.getSelectedIndex())).getNombreFuncionario());
+        if ("Mañana".equals(empleado.getTurno())) {
+            jRadioButtonMañana.setSelected(true);
+        } else {
+            jRadioButtonTarde.setSelected(true);
+        }
+         jTextFieldFuncionario.setEnabled(false);
+         
 
         jComboBoxReparticion.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent e) {
                 int idRep = jComboBoxReparticion.getSelectedIndex();
-
                 int idFun = repBO.recuperarIdFuncionarioRep(idRep);
                 funcionario = funBO.buscarFuncionario(idFun);
                 jTextFieldFuncionario.setText(funcionario.getNombreFuncionario());
 
             }
         });
-    }
 
-    NuevoEmpleadoUI() {
     }
 
     /**
@@ -78,7 +92,7 @@ public class NuevoEmpleadoUI extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        jButtonNuevo = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabelLegajo = new javax.swing.JLabel();
@@ -105,6 +119,7 @@ public class NuevoEmpleadoUI extends javax.swing.JPanel {
 
         setMaximumSize(new java.awt.Dimension(800, 400));
         setMinimumSize(new java.awt.Dimension(800, 400));
+        setPreferredSize(new java.awt.Dimension(800, 400));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel2.setMaximumSize(new java.awt.Dimension(800, 400));
@@ -113,10 +128,10 @@ public class NuevoEmpleadoUI extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel3.setText("Gestión de Empleados");
 
-        jButtonNuevo.setText("Guardar Nuevo Empleado");
-        jButtonNuevo.addActionListener(new java.awt.event.ActionListener() {
+        jButton4.setText("Guardar Cambios");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonNuevoActionPerformed(evt);
+                jButton4ActionPerformed(evt);
             }
         });
 
@@ -128,20 +143,15 @@ public class NuevoEmpleadoUI extends javax.swing.JPanel {
         });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel4.setText("Alta Nuevo Empleado");
+        jLabel4.setText("Modificar información de Empleado");
 
         jLabelLegajo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabelLegajo.setText("Legajo N° ");
+        jLabelLegajo.setText("Legajo N°:");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Repartición:");
 
         jComboBoxReparticion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Intendencia", "Dirección de Protocolo", "Secretaria de Modernización", "Secretaría de Hacienda", "Secretaría de Producción", "Dirección de Prensa", "Secretaría de Obras Públicas", "Dirección de Recursos Humanos", "Dirección de Deportes", "Dirección de Acción Social", " " }));
-        jComboBoxReparticion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxReparticionActionPerformed(evt);
-            }
-        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Turno:");
@@ -245,36 +255,39 @@ public class NuevoEmpleadoUI extends javax.swing.JPanel {
                                 .addComponent(jLabel3))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(48, 48, 48)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addGap(38, 38, 38)
-                                        .addComponent(jLabelLegajo))
-                                    .addComponent(jButton2))
-                                .addGap(123, 123, 123)
-                                .addComponent(jButtonNuevo))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(49, 49, 49)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jComboBoxReparticion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jTextFieldFuncionario)))
-                                .addGap(156, 156, 156)
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(jRadioButtonMañana)
-                                .addGap(10, 10, 10)
-                                .addComponent(jRadioButtonTarde))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 10, Short.MAX_VALUE)))
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabelLegajo)))
+                        .addGap(0, 256, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(123, 123, 123)
+                .addComponent(jButton4)
+                .addGap(237, 237, 237))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBoxReparticion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldFuncionario)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(jRadioButtonMañana)
+                .addGap(10, 10, 10)
+                .addComponent(jRadioButtonTarde)
+                .addGap(117, 117, 117))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,24 +300,30 @@ public class NuevoEmpleadoUI extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabelLegajo))
-                .addGap(26, 26, 26)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jComboBoxReparticion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(jRadioButtonMañana)
-                    .addComponent(jRadioButtonTarde))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextFieldFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButtonNuevo))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jComboBoxReparticion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jTextFieldFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton2)
+                            .addComponent(jButton4))
+                        .addContainerGap(32, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jRadioButtonMañana)
+                            .addComponent(jRadioButtonTarde))
+                        .addGap(107, 107, 107))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -319,8 +338,8 @@ public class NuevoEmpleadoUI extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        boolean validacionCampos = true;
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+boolean validacionCampos = true;
 
         for (Component component : jPanel3.getComponents()) {
             if (component instanceof JTextField) {
@@ -331,7 +350,7 @@ public class NuevoEmpleadoUI extends javax.swing.JPanel {
             }
         }
 
-        if (validacionCampos && (jComboBoxReparticion.getSelectedItem() != " ")) {
+        if (validacionCampos) {
 
             try {
                 Integer.parseInt(jTextFieldDocumento.getText());
@@ -349,7 +368,7 @@ public class NuevoEmpleadoUI extends javax.swing.JPanel {
                     empleado.setTurno("Mañana");
                 }
 
-                empleado.setId_empleado(nuevoid);
+                empleado.setId_empleado(empleado.getId_empleado());
                 empleado.setNombre(jTextFieldNombre.getText());
                 empleado.setApellido(jTextFieldApellido.getText());
                 empleado.setDni(jTextFieldDocumento.getText());
@@ -357,14 +376,13 @@ public class NuevoEmpleadoUI extends javax.swing.JPanel {
                 empleado.setEmail(jTextFieldEmail.getText());
                 empleado.setId_reparticion(jComboBoxReparticion.getSelectedIndex());
                 empleado.setId_funcionario(repBO.recuperarIdFuncionarioRep(jComboBoxReparticion.getSelectedIndex()));
-                System.out.println("ID reparticion:" + jComboBoxReparticion.getSelectedIndex() + "ID FUNCIONARIO:" + repBO.recuperarIdFuncionarioRep(jComboBoxReparticion.getSelectedIndex()) + "turno:" + buttonGroup1.getSelection());
-                empleado.setDisponibleLicencia(15);
-                empleado.setDisponiblePermiso(5);
+                empleado.setDisponibleLicencia(empleado.getDisponibleLicencia());
+                empleado.setDisponiblePermiso(empleado.getDisponiblePermiso());
                 empleado.setEstadoEmpleado("Normal");
                 empleado.setTelefono(jTextFieldTelefono.getText());
 
-                empBO.insert(empleado);
-                JOptionPane.showMessageDialog(null, "El empleado se ha cargado correctamente");
+                empBO.update(empleado);
+                JOptionPane.showMessageDialog(null, "El empleado se ha actualizado correctamente");
                 panelGestion = new GestionEmpleadosUI(panelContenedor, usuario, panelSesion);
                 panelContenedor.add(panelGestion);
                 panelGestion.setVisible(true);
@@ -376,12 +394,11 @@ public class NuevoEmpleadoUI extends javax.swing.JPanel {
             }
         } else {
             JOptionPane.showMessageDialog(null, "Deben completarse todos los campos solicitados",
-                    "Error al cargar empleado", JOptionPane.ERROR_MESSAGE);
+                    "Error al modificar información del empleado", JOptionPane.ERROR_MESSAGE);
 
         }
 
-
-    }//GEN-LAST:event_jButtonNuevoActionPerformed
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         int b;
@@ -395,45 +412,18 @@ public class NuevoEmpleadoUI extends javax.swing.JPanel {
             this.setVisible(false);
         } else {
             this.setVisible(true);
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
 
+    }//GEN-LAST:event_jButton2ActionPerformed
+    }
     private void jRadioButtonMañanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMañanaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButtonMañanaActionPerformed
-
-    private void jComboBoxReparticionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxReparticionActionPerformed
-        /*
-        class ItemChangeListener implements ItemListener {
-
-            public void itemStateChanged(ItemEvent event) {
-                if (event.getStateChange() == ItemEvent.SELECTED) {
-                    Object item = event.geti
-                    // do something with object
-                }
-            }
-        }
-
-        
-        jComboBoxReparticion.addActionListener(new ActionListener() {
-            
-            public void actionPerformed(ActionEvent e) {
-                int idRep = jComboBoxReparticion.getSelectedIndex();
-                int idFun = repBO.recuperarIdFuncionarioRep(idRep);
-                funcionario = funBO.buscarFuncionario(idFun);
-                jTextFieldFuncionario.setText(funcionario.getNombreFuncionario());
-                
-            }
-        });
-         */
-
-    }//GEN-LAST:event_jComboBoxReparticionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButtonNuevo;
+    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBoxReparticion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
