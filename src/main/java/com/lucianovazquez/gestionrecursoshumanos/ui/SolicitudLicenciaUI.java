@@ -377,7 +377,7 @@ public class SolicitudLicenciaUI extends javax.swing.JPanel {
                             licencia.setDiaInicio(jdateInicio.toString());
                             licencia.setDiaFin(jdateFin.toString());
                             licencia.setEstadoLicencia("Pendiente");
-                            licencia.setObservacionLicencia("Pendiente en Reconocimiento Médico. Profesional: Dr" + medico.getNombre() + " del turno: " + medico.getTurnoMedico() + "/n" + jTextArea1.getText());
+                            licencia.setObservacionLicencia("- " + jTextArea1.getText()+ "/n");
                             licBO.insert(licencia);
                             JOptionPane.showMessageDialog(null, "La solicitud de licencia se ha cargado correctamente");
                             panelMenu = new MenuPrincipalUI(panelContenedor, usuario, panelSesion);

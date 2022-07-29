@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -43,6 +45,43 @@ public class MedicoDAO {
             }
         }
         return medico;
+    }
+
+    public void listarLicenciasPorMedico(JTable tabla, int id_usuario, String estado) {
+      DefaultTableModel model;
+        String[] columnas = {"N°","ID Lic.", "Nombre", "Apellido","DNI", "Repartición", "Desde", "Hasta"};
+        model = new DefaultTableModel(null, columnas);
+        String sql = "SELECT row_number() OVER (ORDER BY diaInicio) AS id, id_licencia, nombre, apellido, dni, nombreReparticion, diaInicio, diaFin FROM licencia INNER JOIN empleado ON licencia.id_empleado = empleado.id_empleado INNER JOIN reparticion ON empleado.id_reparticion = reparticion.id_reparticion WHERE id_medico = ? AND estadoLicencia = ? AND tipoLicencia = 'Médica'";
+        String[] filas = new String[9];
+
+        System.out.println("CARGA TABLA EMPLEADO POR DNI");
+
+        ResultSet rs = null;
+
+        try {
+            PreparedStatement pst = ConexionDAO.getConnection().prepareStatement(sql);
+
+            pst.setInt(1, id_usuario);
+            pst.setString(2, estado);
+
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                for (int i = 0; i < 8; i++) {
+                    filas[i] = rs.getString(i + 1);
+                }
+                model.addRow(filas);
+            }
+            tabla.setModel(model);
+
+        } catch (Exception e) {
+            System.out.println("ERROR AL CARGAR TABLA LICENCIAS POR MEDICO" + e.getMessage());
+        } finally {
+            try {
+                ConexionDAO.closeConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(MedicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } 
     }
     
 }

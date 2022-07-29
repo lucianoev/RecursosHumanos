@@ -204,7 +204,7 @@ public class HistorialUI extends javax.swing.JPanel {
             }
         });
 
-        jLabelNombreEmpleado.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabelNombreEmpleado.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabelNombreEmpleado.setText("José Alvarez ");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N

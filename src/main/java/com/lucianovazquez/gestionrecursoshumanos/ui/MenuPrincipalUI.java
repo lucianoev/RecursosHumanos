@@ -63,6 +63,7 @@ public class MenuPrincipalUI extends javax.swing.JPanel {
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel2.setMaximumSize(new java.awt.Dimension(500, 400));
         jPanel2.setMinimumSize(new java.awt.Dimension(500, 400));
+        jPanel2.setRequestFocusEnabled(false);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel3.setText("Menú Principal");

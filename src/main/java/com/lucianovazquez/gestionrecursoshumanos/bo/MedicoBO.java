@@ -7,6 +7,7 @@ package com.lucianovazquez.gestionrecursoshumanos.bo;
 
 import com.lucianovazquez.gestionrecursoshumanos.dao.MedicoDAO;
 import com.lucianovazquez.gestionrecursoshumanos.entity.Medico;
+import javax.swing.JTable;
 
 /**
  *
@@ -25,6 +26,14 @@ public class MedicoBO {
             mensaje = mensaje + e.getMessage();
         }
         return medico;
+    }
+
+    public void listarLicenciasPorMedico(JTable jTable1, int id_usuario, String estado) {
+        try {
+            medDAO.listarLicenciasPorMedico(jTable1,id_usuario,estado);
+        } catch (Exception e) {
+            System.out.println("ERROR AL LISTAR LICENCIAS POR MEDICO"+e.getMessage()); 
+        }
     }
 
 }

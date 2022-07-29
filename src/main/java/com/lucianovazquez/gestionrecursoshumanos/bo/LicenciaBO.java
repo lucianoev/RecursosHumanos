@@ -17,6 +17,7 @@ import javax.swing.JTable;
 public class LicenciaBO {
 
     LicenciaDAO lic = new LicenciaDAO();
+    Licencia licencia;
 
     public void listarLicencia(JTable jTable1, int id_empleado, String tipo) {
         lic.listarLicencia(jTable1, id_empleado, tipo);
@@ -39,6 +40,24 @@ public class LicenciaBO {
            System.out.println("Error control de licencia superpuesta:" + e.getMessage());
        }
        return control;
+    }
+
+    public Licencia buscarLicencia(int id_licencia) {
+        licencia = new Licencia();
+    try{
+          licencia = lic.buscarLicencia(id_licencia);
+       }catch(Exception e){
+           System.out.println("Error al buscar licencia por ID:" + e.getMessage());
+       }
+       return licencia;    
+    }
+
+    public void update(Licencia licencia) {
+      try{
+          lic.update(licencia);
+       }catch(Exception e){
+           System.out.println("Error al actualizar licencia:" + e.getMessage());
+       }
     }
 
 }

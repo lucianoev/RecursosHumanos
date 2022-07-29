@@ -22,12 +22,13 @@ public class LoginUI extends javax.swing.JPanel {
     PanelSesionUI panelSesion;
     GridBagLayout layaout = new GridBagLayout();
     MenuPrincipalUI panelMenu;
+    ReconocimientoMedicoUI panelRecon;
     UsuarioBO usu = new UsuarioBO();
     Usuario usuario = new Usuario();
 
     javax.swing.JButton jButtonUsuario;
     javax.swing.JButton jButtonCerrarSesion;
-    
+
     boolean validacion;
 
     public LoginUI(javax.swing.JPanel panelContenedor, javax.swing.JPanel panelContenedorSesion) {
@@ -249,11 +250,11 @@ public class LoginUI extends javax.swing.JPanel {
     }//GEN-LAST:event_JTextFieldUsuarioActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       
+
         validacion = usu.validarContraseña(JPasswordFieldContraseña.getText(), JTextFieldUsuario.getText());
-        
-         System.out.println("BOLLEAN VALIDACIÓN del login"+validacion);
-         
+
+        System.out.println("BOLEAN VALIDACIÓN del login" + validacion);
+
         if (validacion) {
             panelContenedorSesion.removeAll();
             usuario = usu.loginUsuario(JTextFieldUsuario.getText());
@@ -268,10 +269,18 @@ public class LoginUI extends javax.swing.JPanel {
             panelContenedorSesion.add(panelSesion, c);
             panelSesion.setVisible(true);
 
-            panelMenu = new MenuPrincipalUI(panelContenedor, usuario, panelContenedorSesion);
-            panelContenedor.add(panelMenu, c);
-            panelMenu.setVisible(true);
-            this.setVisible(false);
+            if (!usuario.getTipo().equals("Médico")) {
+                panelMenu = new MenuPrincipalUI(panelContenedor, usuario, panelContenedorSesion);
+                panelContenedor.add(panelMenu, c);
+                panelMenu.setVisible(true);
+                this.setVisible(false);
+
+            } else {
+                panelRecon = new ReconocimientoMedicoUI(panelContenedor, usuario, panelContenedorSesion);
+                panelContenedor.add(panelRecon);
+                panelRecon.setVisible(true);
+                this.setVisible(false);
+            }
 
         } else {
             JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrecta");

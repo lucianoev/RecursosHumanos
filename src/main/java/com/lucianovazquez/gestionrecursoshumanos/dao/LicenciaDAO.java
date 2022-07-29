@@ -22,6 +22,8 @@ import javax.swing.table.DefaultTableModel;
 public class LicenciaDAO {
     
     private boolean control;
+    private Licencia licencia;
+    
 
     public void listarLicencia(JTable tabla, int id_empleado, String tipo) {
          DefaultTableModel model;
@@ -112,6 +114,66 @@ public class LicenciaDAO {
             }
         }
         return control;
+    }
+
+    public Licencia buscarLicencia(int id_licencia) {
+        
+        licencia = new Licencia();
+        String sql = "SELECT * FROM licencia WHERE id_licencia=?";
+        try {
+            PreparedStatement pst = ConexionDAO.getConnection().prepareStatement(sql);
+            pst.setInt(1, id_licencia);
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                licencia.setId_licencia(rs.getInt(1));
+                licencia.setId_empleado(rs.getInt(2));
+                licencia.setId_medico(rs.getInt(3));
+                licencia.setTipoLicencia(rs.getString(4));
+                licencia.setDiaInicio(rs.getString(5));
+                licencia.setDiaFin(rs.getString(6));
+                licencia.setEstadoLicencia(rs.getString(7));
+                licencia.setObservacionLicencia(rs.getString(8));
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERROR AL BUSCAR LICENCIA POR ID: " + e.getMessage());
+        } finally {
+            try {
+                ConexionDAO.closeConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(LicenciaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return licencia;
+    }
+
+    public void update(Licencia licencia) throws ClassNotFoundException {
+    String sql = "UPDATE licencia SET id_empleado = ?, id_medico = ?, tipoLicencia = ?, diaInicio = ?, diaFin = ?, estadoLicencia = ?, observacionLicencia = ? WHERE id_licencia = ?";
+        try {
+            PreparedStatement preparedStatement = ConexionDAO.getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, licencia.getId_empleado());
+            preparedStatement.setInt(2, licencia.getId_medico());
+            preparedStatement.setString(3, licencia.getTipoLicencia());
+            preparedStatement.setString(4, licencia.getDiaInicio());
+            preparedStatement.setString(5, licencia.getDiaFin());
+            preparedStatement.setString(6, licencia.getEstadoLicencia());
+            preparedStatement.setString(7, licencia.getObservacionLicencia());
+            preparedStatement.setInt(8, licencia.getId_licencia());
+            
+
+            preparedStatement.execute();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(EmpleadoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("No se pudo actualizar licencia"+ ex.getMessage()); 
+        } finally {
+            try {
+                ConexionDAO.closeConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(LicenciaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }    
     }
     
 }

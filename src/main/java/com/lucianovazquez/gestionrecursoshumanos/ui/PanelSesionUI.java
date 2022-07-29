@@ -190,6 +190,7 @@ public class PanelSesionUI extends javax.swing.JPanel {
 
             jLabelUsuario.setText("");
             jLabelUsuario.setEnabled(false);
+            jButtonCambiarContraseña.setEnabled(false);
             int i = panelContenedor.getComponentCount();
             while (i != 0) {
                 if (panelContenedor.getComponent(i-1) instanceof JPanel) {
@@ -206,6 +207,7 @@ public class PanelSesionUI extends javax.swing.JPanel {
             panelContenedor.add(login, c);
             login.setVisible(true);
             jButtonCerrarSesion.setEnabled(false);
+            //jButtonCambiarContraseña.setEnabled(true);
 
             //this.setContentPane(jPanelFondo);
         }        // TODO add your handling code here:
