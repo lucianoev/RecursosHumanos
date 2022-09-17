@@ -25,6 +25,7 @@ public class MenuPrincipalUI extends javax.swing.JPanel {
     GestionEmpleadosUI panelGestionEmpleados;
     ControlAsistenciaUI panelControl;
     SolicitudLicenciaUI panelSolicLicencia;
+    ReporteUI panelReporte;
 
     public MenuPrincipalUI(javax.swing.JPanel panelContenedor, Usuario usuario, javax.swing.JPanel panelSesion) {
         initComponents();
@@ -170,7 +171,7 @@ public class MenuPrincipalUI extends javax.swing.JPanel {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         
         System.out.println("INGRESO ANTES DEL IF LICENCIAS"+usuario.getNombre()+ usuario.getTipo());
-        if(usuario.getTipo().equals("Personal RRHH") || usuario.getTipo().equals("admin") ){
+        if(usuario.getTipo().equals("RRHH") || usuario.getTipo().equals("admin") ){
             System.out.println("INGRESO LICENCIAS"+usuario.getNombre());
             
             panelSolicLicencia = new SolicitudLicenciaUI(panelContenedor, usuario, panelSesion);
@@ -185,7 +186,10 @@ public class MenuPrincipalUI extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+       panelReporte = new ReporteUI(panelContenedor, usuario, panelSesion);
+        panelContenedor.add(panelReporte);
+        panelReporte.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton6ActionPerformed
 
 

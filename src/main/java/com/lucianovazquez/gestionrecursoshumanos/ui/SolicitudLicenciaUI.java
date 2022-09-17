@@ -399,6 +399,10 @@ public class SolicitudLicenciaUI extends javax.swing.JPanel {
                                 int diasRestantes = empleado.getDisponibleLicencia() - diasSolicitados;
                                 licencia.setObservacionLicencia(jTextArea1.getText() + "/n" + "Días restantes de Licencia Ordinaria: " + diasRestantes);
                                 licBO.insert(licencia);
+                                
+                                empleado.setDisponibleLicencia(diasRestantes);
+                                empBO.update(empleado);
+                                
                                 JOptionPane.showMessageDialog(null, "La solicitud de licencia se ha cargado correctamente");
                                 panelMenu = new MenuPrincipalUI(panelContenedor, usuario, panelSesion);
                                 panelContenedor.add(panelMenu);
@@ -418,6 +422,9 @@ public class SolicitudLicenciaUI extends javax.swing.JPanel {
                             licencia.setEstadoLicencia("Aprobada");
                             licencia.setObservacionLicencia(jTextArea1.getText());
                             licBO.insert(licencia);
+                            
+                            
+                            
                             JOptionPane.showMessageDialog(null, "La solicitud de licencia se ha cargado correctamente");
                             panelMenu = new MenuPrincipalUI(panelContenedor, usuario, panelSesion);
                             panelContenedor.add(panelMenu);
